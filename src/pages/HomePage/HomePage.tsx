@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import droneVideo from '../../assets/drone-footage-5.mp4';
+import droneVideo from '../../assets/drone-footage-4.mp4';
 import './HomePage.scss';
 
 const HomePage: React.FC = () => {
