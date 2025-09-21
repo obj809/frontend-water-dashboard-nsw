@@ -1,3 +1,5 @@
+// src/pages/AboutPage/AboutPage.tsx
+
 import React from 'react';
 import './AboutPage.scss';
 import Footer from '../../components/Footer/Footer';
