@@ -1,3 +1,5 @@
+// src/pages/DamGraphPage/DamGraphPage.tsx
+
 import React, { useMemo } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import './DamGraphPage.scss';
@@ -38,7 +40,7 @@ const DamGraphPage: React.FC = () => {
     <div className="DamGraphPage" aria-label="Dam Graph Page">
       <header className="DamGraphPage__header">
         <Link className="btn" to={`/dams/${encodeURIComponent(damId)}`}>← Back to dam</Link>
-        <div /> {/* keep grid structure balanced */}
+        <div />
         <div />
       </header>
 

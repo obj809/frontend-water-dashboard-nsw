@@ -1,6 +1,5 @@
 // src/pages/AboutPage/AboutPage.scss
 
-
 .AboutPage {
   width: 100%;
   min-height: 100vh;
@@ -25,7 +24,7 @@
   background: #ffffff;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* so title sits at top */
+  align-items: flex-start;
   padding: 2rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
@@ -44,8 +43,8 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
-  color: #111827; /* darker gray for contrast */
-  text-align: center; /* or left if you prefer */
+  color: #111827;
+  text-align: center;
 }
 
 .about-canvas p {

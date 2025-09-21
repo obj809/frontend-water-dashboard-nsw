@@ -15,7 +15,7 @@
 .graph-stage {
   width: 90vw;                 
   height: 92vh;                
-  border-radius: 8px;          /* ✅ keep rounded corners, remove border */
+  border-radius: 8px;
   background: #ffffff;         
   color: #000000;
   display: flex;
@@ -30,10 +30,8 @@
   justify-content: center;
   align-items: center;
   background: #ffffff;         
-  /* ❌ removed dashed border */
 }
 
-/* Arrow buttons */
 .nav-arrow {
   position: absolute;
   top: 50%;
@@ -69,7 +67,6 @@
   transform: translateY(-50%) scale(0.95);
 }
 
-/* Arrow icons (CSS only) */
 .arrow-icon {
   display: block;
   width: 12px;

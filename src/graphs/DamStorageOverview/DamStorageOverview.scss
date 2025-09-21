@@ -1,5 +1,5 @@
 // src/graphs/DamStorageOverview/DamStorageOverview.scss
-/* Wrapper for title + grid */
+
 .storageOverviewWrapper {
   display: flex;
   flex-direction: column;
@@ -9,7 +9,6 @@
   box-sizing: border-box;
 }
 
-/* Title */
 .storageOverviewTitle {
   font-size: 1.4rem;
   font-weight: 700;
@@ -18,7 +17,6 @@
   margin: 16px 0;
 }
 
-/* Grid of tiles */
 .storageGrid {
   flex: 1;
   width: 100%;
@@ -39,7 +37,6 @@
   height: 100%;
 }
 
-/* Empty/loader state */
 .storageEmpty {
   grid-column: 1 / -1;
   display: grid;
@@ -48,12 +45,11 @@
   font-size: 1rem;
 }
 
-/* Tile sizing */
 .storageTile {
   width: 100%;
   aspect-ratio: 1 / 1;
   background: #ffffff;
-  border-radius: 12px;     /* ✅ keep rounded corners */
+  border-radius: 12px;
   padding: 10px;
   display: grid;
   grid-template-rows: auto 1fr;

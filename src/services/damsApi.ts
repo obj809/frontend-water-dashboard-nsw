@@ -1,6 +1,4 @@
-// File: src/services/damsAPI.ts
-//
-// ADD a "getAllDamResources" endpoint (no backend change required)
+// src/services/damsApi.ts
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_BASE_URL } from '../config/apiConfig';
@@ -18,7 +16,6 @@ export const damsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   tagTypes: ['Dams', 'Latest', 'Groups', 'Analyses', 'Overall', 'Resources'], // ← add 'Resources'
   endpoints: (build) => ({
-    // Dams
     getAllDams: build.query<Dam[], void>({
       query: () => `/dams/`,
       providesTags: (result) =>
@@ -34,7 +31,6 @@ export const damsApi = createApi({
       providesTags: (_res, _err, id) => [{ type: 'Dams', id }],
     }),
 
-    // Latest data
     getAllLatestData: build.query<DamResource[], void>({
       query: () => `/latest_data/`,
       providesTags: () => [{ type: 'Latest', id: 'LIST' }],
@@ -44,19 +40,16 @@ export const damsApi = createApi({
       providesTags: (_res, _err, id) => [{ type: 'Latest', id }],
     }),
 
-    // ❗ NEW: raw time-series list (we’ll filter/aggregate on client)
     getAllDamResources: build.query<DamResource[], void>({
       query: () => `/dam_resources/`,
       providesTags: () => [{ type: 'Resources', id: 'LIST' }],
     }),
 
-    // Specific dam analysis
     getSpecificDamAnalysisById: build.query<DamAnalysis[], { damId: string }>({
       query: ({ damId }) => `/specific_dam_analysis/${encodeURIComponent(damId)}`,
       providesTags: (_res, _err, { damId }) => [{ type: 'Analyses', id: damId }],
     }),
 
-    // Dam groups
     getAllDamGroups: build.query<DamGroup[], void>({
       query: () => `/dam_groups/`,
       providesTags: () => [{ type: 'Groups', id: 'LIST' }],
@@ -70,7 +63,6 @@ export const damsApi = createApi({
       providesTags: (_res, _err, { name }) => [{ type: 'Groups', id: `${name}_members` }],
     }),
 
-    // Overall analysis
     getAllOverallDamAnalyses: build.query<OverallDamAnalysis[], void>({
       query: () => `/overall_dam_analysis/`,
       providesTags: () => [{ type: 'Overall', id: 'LIST' }],
@@ -93,6 +85,5 @@ export const {
   useGetDamGroupMembersByNameQuery,
   useGetAllOverallDamAnalysesQuery,
   useGetOverallDamAnalysisByDateQuery,
-  // ← export the new hook
   useGetAllDamResourcesQuery,
 } = damsApi;

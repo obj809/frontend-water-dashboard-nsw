@@ -1,26 +1,19 @@
+// src/graphs/DamBubbleArt/DamBubbleArt.tsx
+
 import React, { useMemo, useRef, useState, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllLatestDataQuery, useGetAllDamsQuery } from '../../services/damsApi';
 import type { Dam, DamResource } from '../../types/types';
 import './DamBubbleArt.scss';
 
-/**
- * DamBubbleArt
- * Artistic bubble cloud without axes:
- * - Outer radius ∝ sqrt(capacity)
- * - Inner radius ∝ sqrt(current volume)
- * - Colors per dam
- * - Click bubble → dam detail page
- */
-
 type Props = { fullScreen?: boolean };
 
 type Bubble = {
   damId: string;
   name: string;
-  capacity: number;    // ML (for size)
-  current: number;     // ML (for inner size)
-  pctFull: number;     // 0..100 (for tooltip)
+  capacity: number;
+  current: number;
+  pctFull: number;
   color: string;
   x: number;
   y: number;
@@ -34,9 +27,8 @@ const PALETTE = [
   '#38bdf8','#34d399','#fbbf24','#60a5fa',
 ];
 
-// sunflower (phyllotaxis) layout
 function phyllotaxis(idx: number, cx: number, cy: number, scale: number) {
-  const golden = Math.PI * (3 - Math.sqrt(5)); // 137.5°
+  const golden = Math.PI * (3 - Math.sqrt(5));
   const r = scale * Math.sqrt(idx + 0.5);
   const theta = idx * golden;
   return { x: cx + r * Math.cos(theta), y: cy + r * Math.sin(theta) };
@@ -47,7 +39,6 @@ const DamBubbleArt: React.FC<Props> = ({ fullScreen = false }) => {
   const { data: latest = [], isLoading: loadingLatest, isError: errorLatest } = useGetAllLatestDataQuery();
   const { data: dams = [], isLoading: loadingDams, isError: errorDams } = useGetAllDamsQuery();
 
-  // container size
   const wrapRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
 
@@ -68,13 +59,11 @@ const DamBubbleArt: React.FC<Props> = ({ fullScreen = false }) => {
 
     if (!latestRows.length) return [];
 
-    // lookup for capacity
     const capacityById = new Map<string, number>();
     for (const d of damRows) {
       if (d?.dam_id) capacityById.set(d.dam_id, Number(d.full_volume ?? 0));
     }
 
-    // build core data
     const prelim = latestRows
       .map((r) => {
         const damId = r.dam_id;
@@ -91,7 +80,6 @@ const DamBubbleArt: React.FC<Props> = ({ fullScreen = false }) => {
 
     if (!prelim.length) return [];
 
-    // radius scaling
     const capVals = prelim.map((d) => d.capacity).filter((v) => v > 0);
     const capMinS = Math.sqrt(Math.min(...capVals));
     const capMaxS = Math.sqrt(Math.max(...capVals));
@@ -108,7 +96,6 @@ const DamBubbleArt: React.FC<Props> = ({ fullScreen = false }) => {
       return outerMin + t * (outerMax - outerMin);
     };
 
-    // largest first (so smaller draw on top)
     const sorted = [...prelim].sort((a, b) => b.capacity - a.capacity);
 
     const cx = w / 2;

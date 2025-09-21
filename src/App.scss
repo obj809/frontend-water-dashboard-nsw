@@ -1,4 +1,4 @@
-/* src/App.scss */
+// src/App.scss
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -24,7 +24,6 @@ html, body, #root, .App {
 
 .footer { position: relative; width: 100vw; }
 
-/* Shared title */
 .page-title,
 .dashboard-box__title {
   font-size: clamp(1.6rem, 3.5vw, 2.1rem);
@@ -33,7 +32,6 @@ html, body, #root, .App {
   margin-bottom: 0.1rem;
 }
 
-/* Optional prose wrapper */
 .prose {
   text-align: left;
   line-height: 1.6;

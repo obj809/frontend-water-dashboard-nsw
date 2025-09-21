@@ -51,8 +51,8 @@ const DamStorageTile: React.FC<Props> = ({ damId, name, pct }) => {
               stroke="none"
               isAnimationActive={false}
             >
-              <Cell fill="#3b82f6" /> {/* filled */}
-              <Cell fill="#e5e7eb" /> {/* remainder */}
+              <Cell fill="#3b82f6" />
+              <Cell fill="#e5e7eb" />
               <Label
                 value={hasData ? `${Math.round(fill)}%` : '—'}
                 position="center"

@@ -18,7 +18,6 @@ import './Graph2.scss';
 
 type Props = { fullScreen?: boolean };
 
-/** Helpers */
 const toMonthKey = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 const labelForMonthKey = (key: string) => {
@@ -134,7 +133,6 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
 
   return (
     <div className="graph2Container">
-      {/* ✅ Added Title */}
       <h2 style={{ textAlign: 'center', marginBottom: '12px', fontSize: '1.2rem' }}>
         Net Inflow vs Release (Last 12 Months)
       </h2>

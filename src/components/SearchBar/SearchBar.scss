@@ -1,4 +1,4 @@
-/* src/components/SearchBar/SearchBar.scss */
+// src/components/SearchBar/SearchBar.scss
 
 .SearchBar {
   position: relative;
@@ -42,7 +42,7 @@
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  text-align: left;   /* ⬅️ force left alignment */
+  text-align: left;
 }
 
 .SearchBar__option {
@@ -50,7 +50,7 @@
   border-radius: 6px;
   cursor: pointer;
   color: #111827;
-  text-align: left;   /* ⬅️ each option left aligned */
+  text-align: left;
 }
 
 .SearchBar__option.is-active,

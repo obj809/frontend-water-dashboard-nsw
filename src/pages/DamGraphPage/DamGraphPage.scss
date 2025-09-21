@@ -1,3 +1,5 @@
+// src/pages/DamGraphPage/DamGraphPage.scss
+
 .DamGraphPage {
   width: 100%;
   min-height: 100vh;
@@ -33,35 +35,28 @@
   text-decoration: none;
 }
 
-/* Main area centers the graph wrapper */
 .DamGraphPage__main {
   flex: 1;
   display: flex;
-  justify-content: center; /* horizontal center */
-  align-items: center;     /* vertical center */
+  justify-content: center;
+  align-items: center;
   padding: 1rem;
   box-sizing: border-box;
-  overflow: hidden;        /* avoid page scrollbars from inner content */
+  overflow: hidden;
 }
 
-/* The graph wrapper defines the max footprint.
-   - Never wider than the viewport (minus padding)
-   - Never taller than the viewport (minus header + padding)
-   - Still responsive on narrow screens
-*/
+
 .graph-wrapper {
   width: min(92vw, 1100px);
   height: min(75vh, 640px);
-  /* Optional subtle framing */
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  padding: 0.5rem;            /* small inner gutter so axes labels don’t clip */
+  padding: 0.5rem;
   box-sizing: border-box;
 }
 
-/* Ensure the immediate chart container fills the wrapper. */
 .graph-wrapper > * {
   width: 100%;
   height: 100%;

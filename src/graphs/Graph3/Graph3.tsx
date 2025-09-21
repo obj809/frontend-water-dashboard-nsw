@@ -18,7 +18,6 @@ import './Graph3.scss';
 
 type Props = { fullScreen?: boolean };
 
-/** Tooltip with % formatting */
 const PctTooltip: React.FC<any> = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   const v = payload[0]?.value;
@@ -97,7 +96,7 @@ const Graph3: React.FC<Props> = ({ fullScreen = false }) => {
     );
   }
 
-  const blueShades = ['#60a5fa', '#3b82f6', '#2563eb']; // light → medium → darker blue
+  const blueShades = ['#60a5fa', '#3b82f6', '#2563eb'];
 
   return (
     <div className="graph3Container">
@@ -107,7 +106,7 @@ const Graph3: React.FC<Props> = ({ fullScreen = false }) => {
       <BarChart
         data={chartData}
         margin={{ top: 10, right: 30, bottom: 40, left: 10 }}
-        barCategoryGap={20} // smaller gap so bars sit closer
+        barCategoryGap={20}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="horizon" tickLine={false} axisLine={true} tickMargin={12} />
@@ -120,7 +119,7 @@ const Graph3: React.FC<Props> = ({ fullScreen = false }) => {
           radius={[6, 6, 0, 0]}
           isAnimationActive={false}
           fillOpacity={0.8}
-          barSize={80} // doubled bar width
+          barSize={80}
         >
           {chartData.map((_, idx) => (
             <Cell key={`cell-${idx}`} fill={blueShades[idx % blueShades.length]} />

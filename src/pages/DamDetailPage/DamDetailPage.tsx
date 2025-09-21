@@ -1,11 +1,10 @@
-// File: src/pages/DamDetailPage/DamDetailPage.tsx
+// src/pages/DamDetailPage/DamDetailPage.tsx
 
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './DamDetailPage.scss';
 import { useGetDamByIdQuery } from '../../services/damsApi';
 
-// Final graphs for this page
 import Graph1 from '../../graphs/Graph1/Graph1';
 import Graph2 from '../../graphs/Graph2/Graph2';
 import Graph3 from '../../graphs/Graph3/Graph3';

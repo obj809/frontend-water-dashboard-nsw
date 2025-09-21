@@ -7,7 +7,6 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  /* a little padding so title and ticks never hug borders */
   padding: 6px 0 0;
 }
 
@@ -15,7 +14,6 @@
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
-  /* nudge the title down from the top border and give space above the chart */
   margin: 8px 0 16px;
   line-height: 1.25;
   color: #111827;

@@ -1,4 +1,4 @@
-/* File: src/pages/DamDetailPage/DamDetailPage.scss */
+// src/pages/DamDetailPage/DamDetailPage.scss
 
 .DamDetailPage {
   width: 100%;
@@ -15,9 +15,9 @@
 }
 
 .detail-stage {
-  width: calc(100% - 4rem);   /* adds more margin horizontally */
-  height: calc(100% - 4rem);  /* adds more margin vertically */
-  margin: 2rem;               /* margin space around container */
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+  margin: 2rem;
 
   max-width: none;
   max-height: none;
@@ -32,7 +32,6 @@
   background: #ffffff;
 }
 
-/* Hero bar with left-aligned button + centered title */
 .hero {
   grid-column: 1 / -1;
   display: flex;
@@ -59,14 +58,13 @@
 
 .hero__title {
   font-weight: 700;
-  font-size: 2rem;   /* ⬅️ increase size */
-  line-height: 1.3;  /* keep spacing balanced */
+  font-size: 2rem;
+  line-height: 1.3;
   text-align: center;
-  color: #111827;    /* optional: darker gray for emphasis */
+  color: #111827;
 }
 
 
-/* Panels */
 .panel {
   display: grid;
   place-items: center;
@@ -80,7 +78,6 @@
 .panel:nth-of-type(3),
 .panel:nth-of-type(4) { border-bottom: none; }
 
-/* Make panels act like big buttons/links */
 .panel--link {
   text-decoration: none;
   color: inherit;

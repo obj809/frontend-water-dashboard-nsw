@@ -1,4 +1,5 @@
 // src/types/types.ts
+
 export interface Dam {
   dam_id: string;
   dam_name: string;
@@ -19,7 +20,7 @@ export interface DamGroupMember {
 export interface DamResource {
   dam_id: string;
   dam_name?: string;
-  date: string; // ISO date
+  date: string;
   percentage_full?: number | null;
   storage_volume?: number | null;
   storage_inflow?: number | null;
@@ -28,7 +29,7 @@ export interface DamResource {
 
 export interface DamAnalysis {
   dam_id: string;
-  analysis_date: string; // ISO date
+  analysis_date: string;
   avg_percentage_full_12_months?: number | null;
   avg_percentage_full_5_years?: number | null;
   avg_percentage_full_20_years?: number | null;
@@ -44,7 +45,7 @@ export interface DamAnalysis {
 }
 
 export interface OverallDamAnalysis {
-  analysis_date: string; // ISO date
+  analysis_date: string;
   avg_percentage_full_12_months?: number | null;
   avg_percentage_full_5_years?: number | null;
   avg_percentage_full_20_years?: number | null;

@@ -16,7 +16,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="HomePage">
-      {/* Background video (restored) */}
       <video
         className="home-bg-video"
         src={droneVideo}
@@ -33,7 +32,6 @@ const HomePage: React.FC = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Foreground content */}
       <div className="home-content">
         <h1 className="homepage-title">Water Dashboard NSW</h1>
         <p className="homepage-subtitle">
@@ -49,7 +47,6 @@ const HomePage: React.FC = () => {
             ariaLabel="Search for a Dam"
             buttonLabel="Search"
           />
-          {/* "View Dam List" button intentionally removed */}
         </div>
       </div>
     </div>

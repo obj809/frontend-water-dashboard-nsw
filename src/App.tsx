@@ -1,4 +1,4 @@
-// File: src/App.tsx
+// src/App.tsx
 
 import React, { useEffect, useRef } from 'react';
 import { Provider } from 'react-redux';
@@ -14,18 +14,15 @@ import TestVideoPage from './components/TestVideoPage/TestVideoPage';
 import DamStorageOverview from './graphs/DamStorageOverview/DamStorageOverview';
 import ReleaseGraph from './graphs/ReleaseGraph/ReleaseGraph';
 
-// ➕ Graph1–4 routes (existing)
 import Graph1 from './graphs/Graph1/Graph1';
 import Graph2 from './graphs/Graph2/Graph2';
 import Graph3 from './graphs/Graph3/Graph3';
 import Graph4 from './graphs/Graph4/Graph4';
 
-// ➕ NEW full-screen dam graph page
 import DamGraphPage from './pages/DamGraphPage/DamGraphPage';
 
 import './App.scss';
 
-// --- Stacked Layout ---
 const StackedPages: React.FC = () => {
   const location = useLocation();
 
@@ -59,20 +56,17 @@ const StackedPages: React.FC = () => {
   );
 };
 
-// --- Main App ---
 const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div className="App">
         <Router>
           <Routes>
-            {/* Stacked routes */}
             <Route path="/" element={<StackedPages />} />
             <Route path="/home" element={<StackedPages />} />
             <Route path="/dashboard" element={<StackedPages />} />
             <Route path="/about" element={<StackedPages />} />
 
-            {/* Standalone graph routes */}
             <Route path="/graphs/storage" element={<DamStorageOverview />} />
             <Route path="/graphs/release" element={<ReleaseGraph />} />
             <Route path="/graphs/graph1" element={<Graph1 />} />
@@ -80,11 +74,9 @@ const App: React.FC = () => {
             <Route path="/graphs/graph3" element={<Graph3 />} />
             <Route path="/graphs/graph4" element={<Graph4 />} />
 
-            {/* Dam detail + NEW full-screen dam graph */}
             <Route path="/dams/:damId" element={<DamDetailPage />} />
             <Route path="/dams/:damId/graph/:graphId" element={<DamGraphPage />} />
 
-            {/* Other standalone routes */}
             <Route path="/test-video" element={<TestVideoPage />} />
           </Routes>
         </Router>

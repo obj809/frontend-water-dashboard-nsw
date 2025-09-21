@@ -33,7 +33,6 @@ const METRICS: Array<{ key: MetricKey; label: string; unit: '%' | 'ML' }> = [
   { key: 'avg_storage_release', label: 'Release', unit: 'ML' },
 ];
 
-/** Tooltip: show normalised (0–100) and the underlying raw value */
 const RadarTip: React.FC<any> = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
 
@@ -51,7 +50,7 @@ const RadarTip: React.FC<any> = ({ active, payload, label }) => {
       <div style={{ fontWeight: 700, marginBottom: 6 }}>{label}</div>
       <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', rowGap: 6, columnGap: 10 }}>
         {payload.map((p: any) => {
-          const seriesName = p?.name; // '12m', '5y', '20y'
+          const seriesName = p?.name;
           const raw = p?.payload?.[`raw_${seriesName}`];
           const unit = p?.payload?.unit ?? '';
           const norm = typeof p?.value === 'number' ? p.value.toFixed(1) : '—';
@@ -113,7 +112,6 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
       },
     };
 
-    // Normalise per metric across horizons (0–100)
     const rows = METRICS.map(({ key, label, unit }) => {
       const vals = rawByMetric[key];
       const nums = (['12m', '5y', '20y'] as Horizon[])
@@ -145,7 +143,6 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
     return { chartData: rows, hasAny: anyData };
   }, [damId, data]);
 
-  // States
   if (!damId) {
     return (
       <div className={`graph4Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
@@ -183,12 +180,10 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
         <RadarChart
           data={chartData}
           outerRadius="80%"
-          // Rotate so first axis is at top (feels more dynamic)
           startAngle={90}
           endAngle={-270}
-          margin={{ top: 8, right: 24, bottom: 56, left: 24 }} /* space for legend */
+          margin={{ top: 8, right: 24, bottom: 56, left: 24 }}
         >
-          {/* --- Pretty defs: gradients + subtle shadow --- */}
           <defs>
             <linearGradient id="grad12m" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.45" />
@@ -203,7 +198,6 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
               <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.10" />
             </linearGradient>
 
-            {/* subtle shadow for strokes */}
             <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur" />
               <feOffset in="blur" dx="0" dy="1" result="offset" />
@@ -217,13 +211,11 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
             </filter>
           </defs>
 
-          {/* Circular grid feels smoother/dynamic */}
           <PolarGrid gridType="circle" radialLines />
 
           <PolarAngleAxis dataKey="metric" tick={{ fontSize: 12 }} />
           <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 11 }} tickCount={5} />
 
-          {/* Animated, softer shapes with gradients and slight shadow */}
           <Radar
             name="12m"
             dataKey="12m"

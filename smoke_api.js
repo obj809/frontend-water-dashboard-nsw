@@ -1,7 +1,4 @@
 // smoke_api.js
-// Quick API smoke test for the Dam Monitoring API via Vite proxy (http://localhost:5174)
-
-// Requires Node 18+ (global fetch). No external deps.
 
 const BASE = "http://localhost:5174/api";
 
@@ -50,11 +47,9 @@ function logResult({ url, status, ok, body }, previewKeys = []) {
 
 async function main() {
   try {
-    // 0) Welcome
     logHeader("Welcome");
     logResult(await getJson("/"), ["message"]);
 
-    // 1) Dams
     logHeader("Dams - List");
     const damsList = await getJson("/dams/");
     logResult(damsList, ["dam_id", "dam_name"]);
@@ -67,7 +62,6 @@ async function main() {
       console.log("   ⚠️ No dams returned; skipping dam detail.");
     }
 
-    // 2) Latest Data
     logHeader("Latest Data - List");
     const latestList = await getJson("/latest_data/");
     logResult(latestList, ["dam_id", "date"]);
@@ -80,7 +74,6 @@ async function main() {
       console.log("   ⚠️ No latest data rows; skipping detail.");
     }
 
-    // 3) Dam Resources
     logHeader("Dam Resources - List");
     const resourcesList = await getJson("/dam_resources/");
     logResult(resourcesList, ["resource_id", "dam_id", "date"]);
@@ -98,12 +91,10 @@ async function main() {
       console.log("   ⚠️ No dam resources; skipping detail.");
     }
 
-    // 4) Specific Dam Analysis
     logHeader("Specific Dam Analysis - List (All)");
     const sdaAll = await getJson("/specific_dam_analysis/");
     logResult(sdaAll, ["dam_id", "analysis_date"]);
 
-    // By dam
     logHeader("Specific Dam Analysis - By Dam");
     let sdaDamId = damId;
     if (!sdaDamId && Array.isArray(sdaAll.body) && sdaAll.body[0]?.dam_id) {
@@ -113,7 +104,6 @@ async function main() {
       const sdaByDam = await getJson(`/specific_dam_analysis/${sdaDamId}`);
       logResult(sdaByDam, ["dam_id", "analysis_date"]);
 
-      // Dam + date (composite)
       const firstDate =
         Array.isArray(sdaByDam.body) && sdaByDam.body[0]?.analysis_date;
       logHeader("Specific Dam Analysis - Dam + Date");
@@ -129,7 +119,6 @@ async function main() {
       console.log("   ⚠️ No dam_id available for SDA by-dam tests.");
     }
 
-    // 5) Dam Groups & Members
     logHeader("Dam Groups - List");
     const groupsList = await getJson("/dam_groups/");
     logResult(groupsList, ["group_name"]);
@@ -159,7 +148,6 @@ async function main() {
       console.log("   ⚠️ No group_name to query members by group.");
     }
 
-    // 6) Overall Dam Analysis
     logHeader("Overall Dam Analysis - List");
     const overallList = await getJson("/overall_dam_analysis/");
     logResult(overallList, ["analysis_date"]);

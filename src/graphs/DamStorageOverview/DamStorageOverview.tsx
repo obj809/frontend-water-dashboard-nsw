@@ -1,4 +1,5 @@
 // src/graphs/DamStorageOverview/DamStorageOverview.tsx
+
 import React, { useMemo } from 'react';
 import { useGetAllLatestDataQuery } from '../../services/damsApi';
 import type { DamResource } from '../../types/types';
@@ -14,12 +15,11 @@ const DamStorageOverview: React.FC<Props> = ({ fullScreen = false }) => {
 
   const rows = useMemo(() => {
     if (!latest?.length) return [];
-    // Stable ordering by name
     const sorted = [...(latest as DamResource[])].sort((a, b) =>
       (a.dam_name ?? '').localeCompare(b.dam_name ?? '')
     );
     return sorted
-      .filter((r) => r.dam_name !== 'Cochrane Dam') // optional: exclude
+      .filter((r) => r.dam_name !== 'Cochrane Dam')
       .map((r) => {
         const pct =
           typeof r.percentage_full === 'number'
@@ -59,8 +59,6 @@ const DamStorageOverview: React.FC<Props> = ({ fullScreen = false }) => {
 
   return (
     <div className="storageOverviewWrapper">
-      {/* remove this line if you don’t want a title */}
-      {/* <h2 className="storageOverviewTitle">Current Dam Storage Levels</h2> */}
   
       <div className={`storageGrid ${fullScreen ? 'is-fullscreen' : ''}`}>
         {rows.map((row) => (
