@@ -12,7 +12,6 @@ import DamDetailPage from './pages/DamDetailPage/DamDetailPage';
 import TestVideoPage from './components/TestVideoPage/TestVideoPage';
 
 import DamStorageOverview from './graphs/DamStorageOverview/DamStorageOverview';
-import InflowGraph from './graphs/InflowGraph/InflowGraph';
 import ReleaseGraph from './graphs/ReleaseGraph/ReleaseGraph';
 
 // ➕ Graph1–4 routes (existing)
@@ -75,7 +74,6 @@ const App: React.FC = () => {
 
             {/* Standalone graph routes */}
             <Route path="/graphs/storage" element={<DamStorageOverview />} />
-            <Route path="/graphs/inflow" element={<InflowGraph />} />
             <Route path="/graphs/release" element={<ReleaseGraph />} />
             <Route path="/graphs/graph1" element={<Graph1 />} />
             <Route path="/graphs/graph2" element={<Graph2 />} />

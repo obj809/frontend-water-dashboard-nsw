@@ -1,5 +1,4 @@
 // src/graphs/DamStorageOverview/DamStorageOverview.scss
-
 /* Wrapper for title + grid */
 .storageOverviewWrapper {
   display: flex;
@@ -16,7 +15,7 @@
   font-weight: 700;
   text-align: center;
   color: #111827;
-  margin: 16px 0; /* slightly lower */
+  margin: 16px 0;
 }
 
 /* Grid of tiles */
@@ -29,10 +28,9 @@
   padding: 12px;
   box-sizing: border-box;
 
-  /* Force a regular grid with equal squares */
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  grid-auto-rows: 1fr;       /* every row same height */
-  justify-items: stretch;    /* each tile stretches to fill grid cell */
+  grid-auto-rows: 1fr;
+  justify-items: stretch;
   align-items: stretch;
 }
 
@@ -53,10 +51,9 @@
 /* Tile sizing */
 .storageTile {
   width: 100%;
-  aspect-ratio: 1 / 1;  /* enforce square shape */
+  aspect-ratio: 1 / 1;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: 12px;     /* ✅ keep rounded corners */
   padding: 10px;
   display: grid;
   grid-template-rows: auto 1fr;

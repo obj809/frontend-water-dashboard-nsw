@@ -1,0 +1,41 @@
+.dbaWrap {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dbaWrap.is-fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+  }
+  
+  .dbaSvg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .dbaEmpty {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #111827;
+  }
+  
+  .dbaBubble {
+    cursor: pointer;
+    outline: none;
+    transition: transform 120ms ease;
+  }
+  .dbaBubble:hover {
+    transform: scale(1.04);
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.12));
+  }
+  .dbaBubble:focus {
+    transform: scale(1.04);
+  }
+  

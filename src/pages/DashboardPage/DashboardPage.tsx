@@ -4,12 +4,13 @@ import React, { useState } from 'react';
 import './DashboardPage.scss';
 
 import StorageGraph from '../../graphs/DamStorageOverview/DamStorageOverview';
-import InflowGraph from '../../graphs/InflowGraph/InflowGraph';
 import ReleaseGraph from '../../graphs/ReleaseGraph/ReleaseGraph';
+import DamBubbleArt from '../../graphs/DamBubbleArt/DamBubbleArt'; // ⬅️ NEW
 
+// Add your graphs to the carousel here
 const graphs = [
   { id: 'storage', Component: StorageGraph },
-  { id: 'inflow', Component: InflowGraph },
+  { id: 'bubbleart', Component: DamBubbleArt },   // ⬅️ NEW
   { id: 'release', Component: ReleaseGraph },
 ];
 
