@@ -12,7 +12,7 @@ import DamDetailPage from './pages/DamDetailPage/DamDetailPage';
 import TestVideoPage from './components/TestVideoPage/TestVideoPage';
 
 import DamStorageOverview from './graphs/DamStorageOverview/DamStorageOverview';
-import ReleaseGraph from './graphs/ReleaseGraph/ReleaseGraph';
+import DamBarChart from './graphs/DamBarChart/DamBarChart';
 
 import Graph1 from './graphs/Graph1/Graph1';
 import Graph2 from './graphs/Graph2/Graph2';
@@ -36,7 +36,7 @@ const StackedPages: React.FC = () => {
     let target: HTMLElement | null = null;
     if (path.startsWith('/dashboard')) target = dashboardRef.current;
     else if (path.startsWith('/about')) target = aboutRef.current;
-    else target = homeRef.current; // default for "/" or "/home"
+    else target = homeRef.current;
 
     target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [location.pathname]);
@@ -68,7 +68,7 @@ const App: React.FC = () => {
             <Route path="/about" element={<StackedPages />} />
 
             <Route path="/graphs/storage" element={<DamStorageOverview />} />
-            <Route path="/graphs/release" element={<ReleaseGraph />} />
+            <Route path="/graphs/release" element={<DamBarChart />} />
             <Route path="/graphs/graph1" element={<Graph1 />} />
             <Route path="/graphs/graph2" element={<Graph2 />} />
             <Route path="/graphs/graph3" element={<Graph3 />} />

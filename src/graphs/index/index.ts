@@ -1,7 +1,7 @@
 // src/graphs/index/index.ts
 
 import DamStorageOverview from '../DamStorageOverview/DamStorageOverview';
-import ReleaseGraph from '../ReleaseGraph/ReleaseGraph';
+import DamBarChart from '../DamBarChart/DamBarChart';
 
 export type GraphSpec = {
   id: string;
@@ -11,5 +11,5 @@ export type GraphSpec = {
 
 export const graphs: GraphSpec[] = [
   { id: 'storage', title: 'Storage Volume Over Time', Component: DamStorageOverview },
-  { id: 'release', title: 'Release (Daily)',          Component: ReleaseGraph },
+  { id: 'release', title: 'Release (Daily)',          Component: DamBarChart },
 ];

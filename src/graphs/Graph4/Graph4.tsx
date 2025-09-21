@@ -177,13 +177,13 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
       <h2 className="graph4Title">Dam Fingerprint — 12m vs 5y vs 20y</h2>
 
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart
-          data={chartData}
-          outerRadius="80%"
-          startAngle={90}
-          endAngle={-270}
-          margin={{ top: 8, right: 24, bottom: 56, left: 24 }}
-        >
+          <RadarChart
+            data={chartData}
+            outerRadius="80%"
+            startAngle={90}
+            endAngle={-270}
+            margin={{ top: 0, right: 24, bottom: 24, left: 24 }}
+          >
           <defs>
             <linearGradient id="grad12m" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.45" />
@@ -257,7 +257,7 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
           <Legend
             verticalAlign="bottom"
             align="center"
-            wrapperStyle={{ paddingTop: 10 }}
+            wrapperStyle={{ paddingTop: 30 }}
           />
         </RadarChart>
       </ResponsiveContainer>

@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import './DashboardPage.scss';
 
 import StorageGraph from '../../graphs/DamStorageOverview/DamStorageOverview';
-import ReleaseGraph from '../../graphs/ReleaseGraph/ReleaseGraph';
-import DamBubbleArt from '../../graphs/DamBubbleArt/DamBubbleArt';
+import DamBarChart from '../../graphs/DamBarChart/DamBarChart';
+import DamBubbleChart from '../../graphs/DamBubbleChart/DamBubbleChart';
 
 const graphs = [
   { id: 'storage', Component: StorageGraph },
-  { id: 'bubbleart', Component: DamBubbleArt },
-  { id: 'release', Component: ReleaseGraph },
+  { id: 'bubbleart', Component: DamBubbleChart },
+  { id: 'release', Component: DamBarChart },
 ];
 
 const DashboardPage: React.FC = () => {

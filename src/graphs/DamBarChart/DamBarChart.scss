@@ -1,6 +1,6 @@
-// src/graphs/ReleaseGraph/ReleaseGraph.scss
+/* src/graphs/DamBarChart/DamBarChart.scss */
 
-.graphPlaceholder {
+.barChartPlaceholder {
   width: 100%;
   height: 100%;
   display: grid;
@@ -10,21 +10,21 @@
   color: #000000;
 }
 
-.graphPlaceholder.is-fullscreen {
+.barChartPlaceholder.is-fullscreen {
   width: 100vw;
   height: 100vh;
   background: #ffffff;
   color: #000000;
 }
 
-.graphPlaceholder__title {
+.barChartPlaceholder__title {
   font-weight: 700;
   font-size: 1.2rem;
   margin-bottom: 6px;
   color: #000000;
 }
 
-.graphPlaceholder__sub {
+.barChartPlaceholder__sub {
   opacity: 0.85;
   font-size: 0.9rem;
   color: #000000;
