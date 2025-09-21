@@ -1,5 +1,7 @@
 # Water Dashboard NSW Frontend
 
+![Tests](https://github.com/obj809/frontend-water-dashboard-nsw/actions/workflows/test.yml/badge.svg)
+
 <!-- ![App Demo](./README-demo.gif) -->
 
 <img src="./screen-recording.gif" alt="App Demo" width="960"/>
