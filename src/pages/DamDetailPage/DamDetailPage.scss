@@ -1,4 +1,4 @@
-/* src/pages/DamDetailPage/DamDetailPage.scss */
+/* File: src/pages/DamDetailPage/DamDetailPage.scss */
 
 .DamDetailPage {
   width: 100%;
@@ -31,8 +31,6 @@
   overflow: hidden;
   background: #ffffff;
 }
-
-
 
 /* Hero bar with left-aligned button + centered title */
 .hero {
@@ -78,3 +76,15 @@
 
 .panel:nth-of-type(3),
 .panel:nth-of-type(4) { border-bottom: none; }
+
+/* Make panels act like big buttons/links */
+.panel--link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.panel--link:focus,
+.panel--link:hover {
+  outline: none;
+  background: #fafafa;
+}

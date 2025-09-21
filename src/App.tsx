@@ -15,11 +15,14 @@ import StorageGraph from './graphs/StorageGraph/StorageGraph';
 import InflowGraph from './graphs/InflowGraph/InflowGraph';
 import ReleaseGraph from './graphs/ReleaseGraph/ReleaseGraph';
 
-// ➕ New graph imports
+// ➕ Graph1–4 routes (existing)
 import Graph1 from './graphs/Graph1/Graph1';
 import Graph2 from './graphs/Graph2/Graph2';
 import Graph3 from './graphs/Graph3/Graph3';
 import Graph4 from './graphs/Graph4/Graph4';
+
+// ➕ NEW full-screen dam graph page
+import DamGraphPage from './pages/DamGraphPage/DamGraphPage';
 
 import './App.scss';
 
@@ -74,14 +77,16 @@ const App: React.FC = () => {
             <Route path="/graphs/storage" element={<StorageGraph />} />
             <Route path="/graphs/inflow" element={<InflowGraph />} />
             <Route path="/graphs/release" element={<ReleaseGraph />} />
-            {/* ➕ New standalone graph routes */}
             <Route path="/graphs/graph1" element={<Graph1 />} />
             <Route path="/graphs/graph2" element={<Graph2 />} />
             <Route path="/graphs/graph3" element={<Graph3 />} />
             <Route path="/graphs/graph4" element={<Graph4 />} />
 
-            {/* Other standalone routes */}
+            {/* Dam detail + NEW full-screen dam graph */}
             <Route path="/dams/:damId" element={<DamDetailPage />} />
+            <Route path="/dams/:damId/graph/:graphId" element={<DamGraphPage />} />
+
+            {/* Other standalone routes */}
             <Route path="/test-video" element={<TestVideoPage />} />
           </Routes>
         </Router>

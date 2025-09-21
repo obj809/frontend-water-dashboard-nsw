@@ -1,17 +1,21 @@
-// src/pages/DamDetailPage/DamDetailPage.tsx
+// File: src/pages/DamDetailPage/DamDetailPage.tsx
 
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './DamDetailPage.scss';
 import { useGetDamByIdQuery } from '../../services/damsApi';
 
-// Import the new graphs
+// Final graphs for this page
 import Graph1 from '../../graphs/Graph1/Graph1';
 import Graph2 from '../../graphs/Graph2/Graph2';
 import Graph3 from '../../graphs/Graph3/Graph3';
 import Graph4 from '../../graphs/Graph4/Graph4';
 
-type DetailGraph = React.ComponentType<{ fullScreen?: boolean }>;
+type DetailGraph = {
+  id: string;
+  title: string;
+  Component: React.ComponentType<{ fullScreen?: boolean }>;
+};
 
 const DamDetailPage: React.FC = () => {
   const { damId = '' } = useParams<{ damId: string }>();
@@ -19,8 +23,12 @@ const DamDetailPage: React.FC = () => {
 
   const title = isLoading ? 'Loading…' : (dam?.dam_name ?? 'Dam Detail');
 
-  // Dynamically supplied list of components (2x2 grid will render first 4)
-  const detailGraphs: DetailGraph[] = [Graph1, Graph2, Graph3, Graph4];
+  const detailGraphs: DetailGraph[] = [
+    { id: 'graph1', title: 'Graph 1', Component: Graph1 },
+    { id: 'graph2', title: 'Graph 2', Component: Graph2 },
+    { id: 'graph3', title: 'Graph 3', Component: Graph3 },
+    { id: 'graph4', title: 'Graph 4', Component: Graph4 },
+  ];
 
   return (
     <div className="DamDetailPage" aria-label="Dam Detail Page">
@@ -32,10 +40,15 @@ const DamDetailPage: React.FC = () => {
           <div className="hero__title">{title}</div>
         </header>
 
-        {detailGraphs.map((Comp, idx) => (
-          <div key={idx} className="panel">
-            <Comp />
-          </div>
+        {detailGraphs.map(({ id, title, Component }) => (
+          <Link
+            key={id}
+            to={`/dams/${encodeURIComponent(damId)}/graph/${encodeURIComponent(id)}`}
+            className="panel panel--link"
+            aria-label={`Open ${title} in full screen`}
+          >
+            <Component />
+          </Link>
         ))}
       </section>
     </div>
