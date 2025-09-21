@@ -2,7 +2,12 @@
 
 <!-- ![App Demo](./README-demo.gif) -->
 
-<img src="./screen-recording.gif" alt="App Demo" width="900" height="600"/>
+<p align="center">
+  <img src="./screen-recording.gif" alt="App Demo" width="600"/>
+</p>
 
-[![Page 2](src/assets/page-2.png)](src/assets/page-2.png)
-[![Page 3](src/assets/page-3.png)](src/assets/page-3.png)
+<p align="center">
+  <img src="src/assets/page-2.png" alt="Page 2" width="600"/>
+  <br/>
+  <img src="src/assets/page-3.png" alt="Page 3" width="600"/>
+</p>
