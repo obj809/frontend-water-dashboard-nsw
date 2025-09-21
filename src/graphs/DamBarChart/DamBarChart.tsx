@@ -1,5 +1,7 @@
 // src/graphs/DamBarChart/DamBarChart.tsx
 
+// src/graphs/DamBarChart/DamBarChart.tsx
+
 import React, { useMemo } from 'react';
 import {
   BarChart,
@@ -21,7 +23,7 @@ type DamBarDatum = {
 };
 
 type Props = {
-  data?: DamBarDatum[]; // make optional
+  data?: DamBarDatum[];
 };
 
 const BLUE = '#1e3a8a';  // deep blue
@@ -31,7 +33,7 @@ const fmtML = (n: number) => `${Math.round(n).toLocaleString()} ML`;
 
 const DamBarChart: React.FC<Props> = ({ data = [] }) => {
   const chartData = useMemo(() => {
-    if (!Array.isArray(data)) return []; // guard
+    if (!Array.isArray(data)) return [];
 
     return [...data]
       .filter((d) => d.capacity > 0)
@@ -54,7 +56,10 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+      <BarChart
+        data={chartData}
+        margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+      >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="dam"
@@ -77,13 +82,20 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
           labelFormatter={(label: string) => `Dam: ${label}`}
         />
 
-        <Bar dataKey="capacity" name="Capacity" fill={BLUE} barSize={40} />
+        {/* Base capacity bar */}
+        <Bar
+          dataKey="capacity"
+          name="Capacity"
+          fill={BLUE}
+          barSize={80} // doubled width
+        />
 
+        {/* Overlay % full bar */}
         <Bar
           dataKey="pct"
           name="% Full"
           fill={TURQ}
-          barSize={40}
+          barSize={80} // match base bar
           shape={(props: any) => {
             const { x, y, width, height, payload } = props;
             const pct: number = payload?.pct ?? 0;
