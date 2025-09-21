@@ -9,7 +9,9 @@
     "moduleResolution": "node", // Use "node" for compatibility with most environments
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noEmit": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist/types-node",
     "baseUrl": "./", // Ensures paths are relative to the root
     "paths": {
       "@features/*": ["src/features/*"] // Alias for features

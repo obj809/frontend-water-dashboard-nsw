@@ -5,16 +5,13 @@
 node smoke_api.js
 
 
-
 # Tests
 
-npx jest
+npm run test
 
-npx jest src/__tests__/api/api.test.ts
-
-npx jest src/__tests__/features/damGroups/damGroupsSlice.test.ts
-
-npx jest src/__tests__/features/damResources/damResourcesSlice.test.ts
-
-npx jest src/__tests__/features/damsSlice/damsSlice.test.ts
-
+npx vitest run src/config/apiConfig.test.ts
+npx vitest run src/components/Footer/Footer.test.tsx
+npx vitest run src/components/DamStorageTile/DamStorageTile.test.tsx
+npx vitest run src/components/SearchBar/SearchBar.test.tsx
+npx vitest run src/pages/AboutPage/AboutPage.test.tsx
+npx vitest run src/pages/DamDetailPage/DamDetailPage.test.tsx
