@@ -7,15 +7,16 @@ import StorageGraph from '../../graphs/DamStorageOverview/DamStorageOverview';
 import DamBarChart from '../../graphs/DamBarChart/DamBarChart';
 import DamBubbleChart from '../../graphs/DamBubbleChart/DamBubbleChart';
 
-import { useGetAllDamsQuery } from '../../services/damsApi';
+import { useGetAllDamsQuery, useGetAllLatestDataQuery } from '../../services/damsApi';
 
 const DashboardPage: React.FC = () => {
   const [index, setIndex] = useState(0);
 
-  // fetch all dams
-  const { data: dams = [], isLoading, isError } = useGetAllDamsQuery();
+  // fetch dams (capacities) and latest fill levels
+  const { data: dams = [] } = useGetAllDamsQuery();
+  const { data: latest = [] } = useGetAllLatestDataQuery();
 
-  // map API data into format for DamBubbleChart
+  // prepare bubble chart dataset
   const bubbleData = useMemo(
     () =>
       dams
@@ -28,10 +29,26 @@ const DashboardPage: React.FC = () => {
     [dams]
   );
 
+  // prepare bar chart dataset
+  const barData = useMemo(() => {
+    const latestById = new Map(latest.map((l) => [l.dam_id, l]));
+    return dams
+      .filter((d) => d.full_volume && d.full_volume > 0)
+      .map((d) => {
+        const latestRow = latestById.get(d.dam_id);
+        return {
+          dam_id: d.dam_id,
+          dam_name: d.dam_name ?? d.dam_id,
+          capacity: Number(d.full_volume ?? 0),
+          filled: Number(latestRow?.storage_volume ?? 0),
+        };
+      });
+  }, [dams, latest]);
+
   const graphs = [
     { id: 'storage', Component: StorageGraph },
-    { id: 'bubble', Component: () => <DamBubbleChart data={bubbleData} width={800} height={600} /> },
-    { id: 'release', Component: DamBarChart },
+    { id: 'bubble', Component: () => <DamBubbleChart data={bubbleData} /> },
+    { id: 'release', Component: () => <DamBarChart data={barData} /> },
   ];
 
   const prev = () => setIndex((i) => (i - 1 + graphs.length) % graphs.length);
@@ -41,27 +58,17 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="DashboardPage" aria-label="Dashboard">
-      <button
-        className="nav-arrow nav-arrow--left"
-        onClick={prev}
-        aria-label="Previous graph"
-      >
+      <button className="nav-arrow nav-arrow--left" onClick={prev} aria-label="Previous graph">
         <span className="arrow-icon arrow-icon--left" />
       </button>
 
       <section className="graph-stage" role="region" aria-label="Graph stage">
         <div className="graph-canvas">
-          {isLoading && <div>Loading dam data…</div>}
-          {isError && <div>Could not load dam data.</div>}
-          {!isLoading && !isError && <ActiveGraph />}
+          <ActiveGraph />
         </div>
       </section>
 
-      <button
-        className="nav-arrow nav-arrow--right"
-        onClick={next}
-        aria-label="Next graph"
-      >
+      <button className="nav-arrow nav-arrow--right" onClick={next} aria-label="Next graph">
         <span className="arrow-icon arrow-icon--right" />
       </button>
     </div>

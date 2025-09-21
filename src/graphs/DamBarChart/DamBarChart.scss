@@ -1,31 +1,39 @@
 /* src/graphs/DamBarChart/DamBarChart.scss */
 
-.barChartPlaceholder {
+.dam-bar-chart {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.bar-placeholder {
   width: 100%;
   height: 100%;
   display: grid;
   place-items: center;
-  text-align: center;
-  background: transparent;
-  color: #000000;
+  color: #111827;
 }
 
-.barChartPlaceholder.is-fullscreen {
-  width: 100vw;
-  height: 100vh;
+/* Tooltip card reused style family from bubble chart for consistency */
+.dbc-tooltip-card {
   background: #ffffff;
-  color: #000000;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  min-width: 200px;
 }
 
-.barChartPlaceholder__title {
+.dbc-tooltip-title {
   font-weight: 700;
-  font-size: 1.2rem;
   margin-bottom: 6px;
-  color: #000000;
+  color: #111827;
 }
 
-.barChartPlaceholder__sub {
-  opacity: 0.85;
-  font-size: 0.9rem;
-  color: #000000;
+.dbc-tooltip-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #111827;
 }
