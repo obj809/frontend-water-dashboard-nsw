@@ -11,7 +11,7 @@ import AboutPage from './pages/AboutPage/AboutPage';
 import DamDetailPage from './pages/DamDetailPage/DamDetailPage';
 import TestVideoPage from './components/TestVideoPage/TestVideoPage';
 
-import StorageGraph from './graphs/StorageGraph/StorageGraph';
+import DamStorageOverview from './graphs/DamStorageOverview/DamStorageOverview';
 import InflowGraph from './graphs/InflowGraph/InflowGraph';
 import ReleaseGraph from './graphs/ReleaseGraph/ReleaseGraph';
 
@@ -74,7 +74,7 @@ const App: React.FC = () => {
             <Route path="/about" element={<StackedPages />} />
 
             {/* Standalone graph routes */}
-            <Route path="/graphs/storage" element={<StorageGraph />} />
+            <Route path="/graphs/storage" element={<DamStorageOverview />} />
             <Route path="/graphs/inflow" element={<InflowGraph />} />
             <Route path="/graphs/release" element={<ReleaseGraph />} />
             <Route path="/graphs/graph1" element={<Graph1 />} />

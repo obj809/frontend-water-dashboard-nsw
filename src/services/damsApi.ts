@@ -1,4 +1,7 @@
-// src/services/damsAPI.ts
+// File: src/services/damsAPI.ts
+//
+// ADD a "getAllDamResources" endpoint (no backend change required)
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_BASE_URL } from '../config/apiConfig';
 import {
@@ -13,7 +16,7 @@ import {
 export const damsApi = createApi({
   reducerPath: 'damsApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
-  tagTypes: ['Dams', 'Latest', 'Groups', 'Analyses', 'Overall'],
+  tagTypes: ['Dams', 'Latest', 'Groups', 'Analyses', 'Overall', 'Resources'], // ← add 'Resources'
   endpoints: (build) => ({
     // Dams
     getAllDams: build.query<Dam[], void>({
@@ -39,6 +42,12 @@ export const damsApi = createApi({
     getLatestDataById: build.query<DamResource, string>({
       query: (damId) => `/latest_data/${encodeURIComponent(damId)}`,
       providesTags: (_res, _err, id) => [{ type: 'Latest', id }],
+    }),
+
+    // ❗ NEW: raw time-series list (we’ll filter/aggregate on client)
+    getAllDamResources: build.query<DamResource[], void>({
+      query: () => `/dam_resources/`,
+      providesTags: () => [{ type: 'Resources', id: 'LIST' }],
     }),
 
     // Specific dam analysis
@@ -84,4 +93,6 @@ export const {
   useGetDamGroupMembersByNameQuery,
   useGetAllOverallDamAnalysesQuery,
   useGetOverallDamAnalysisByDateQuery,
+  // ← export the new hook
+  useGetAllDamResourcesQuery,
 } = damsApi;

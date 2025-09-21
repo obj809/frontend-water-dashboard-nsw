@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import './DashboardPage.scss';
 
-import StorageGraph from '../../graphs/StorageGraph/StorageGraph';
+import StorageGraph from '../../graphs/DamStorageOverview/DamStorageOverview';
 import InflowGraph from '../../graphs/InflowGraph/InflowGraph';
 import ReleaseGraph from '../../graphs/ReleaseGraph/ReleaseGraph';
 

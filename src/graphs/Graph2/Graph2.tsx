@@ -1,16 +1,170 @@
 // src/graphs/Graph2/Graph2.tsx
-import React from 'react';
+
+import React, { useMemo } from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+  ReferenceLine,
+} from 'recharts';
+import { useParams } from 'react-router-dom';
+import { useGetAllDamResourcesQuery } from '../../services/damsApi';
+import type { DamResource } from '../../types/types';
 import './Graph2.scss';
 
 type Props = { fullScreen?: boolean };
 
-const Graph2: React.FC<Props> = ({ fullScreen = false }) => (
-  <div className={`graph2Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
-    <div>
-      <div className="graph2Placeholder__title">Graph 2</div>
-      <div className="graph2Placeholder__sub">(graph goes here)</div>
-    </div>
-  </div>
+/** Helpers */
+const toMonthKey = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+const labelForMonthKey = (key: string) => {
+  const [y, m] = key.split('-').map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString('en-AU', {
+    month: 'short',
+    year: '2-digit',
+  });
+};
+const parseISO = (iso: string) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, (m || 1) - 1, d || 1);
+};
+const RotatedTick: React.FC<any> = ({ x, y, payload }) => (
+  <g transform={`translate(${x},${y})`}>
+    <text dy={12} textAnchor="end" fontSize={12} transform="rotate(-30)">
+      {payload?.value}
+    </text>
+  </g>
 );
+const NetTooltip: React.FC<any> = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  const p = payload[0]?.payload || {};
+  return (
+    <div
+      style={{
+        background: '#ffffff',
+        border: '1px solid #e5e7eb',
+        borderRadius: 6,
+        padding: '8px 10px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+      }}
+    >
+      <div style={{ fontWeight: 600, marginBottom: 4 }}>{label}</div>
+      <div>Net (Inflow − Release): <strong>{Number(p.net ?? 0).toFixed(1)}</strong></div>
+      <div>Inflow: {Number(p.inflowTotal ?? 0).toFixed(1)}</div>
+      <div>Release: {Number(p.releaseTotal ?? 0).toFixed(1)}</div>
+    </div>
+  );
+};
+
+const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
+  const { damId = '' } = useParams<{ damId: string }>();
+  const { data: allResources = [], isLoading, isError } = useGetAllDamResourcesQuery();
+
+  const chartData = useMemo(() => {
+    if (!damId || !allResources.length) return [];
+    const rows = (allResources as DamResource[])
+      .filter((r) => r.dam_id === damId && r.date)
+      .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+    if (!rows.length) return [];
+
+    const latestDate = parseISO(rows[rows.length - 1].date);
+    latestDate.setDate(1);
+
+    const monthKeys: string[] = [];
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(latestDate);
+      d.setMonth(d.getMonth() - i);
+      monthKeys.push(toMonthKey(d));
+    }
+
+    const totals: Record<string, { inflow: number; release: number }> = {};
+    for (const r of rows) {
+      const key = toMonthKey(parseISO(r.date));
+      if (!monthKeys.includes(key)) continue;
+      const inflow = Number(r.storage_inflow ?? 0);
+      const release = Number(r.storage_release ?? 0);
+      const acc = (totals[key] ??= { inflow: 0, release: 0 });
+      acc.inflow += inflow;
+      acc.release += release;
+    }
+
+    return monthKeys.map((key) => {
+      const { inflow = 0, release = 0 } = totals[key] ?? {};
+      return {
+        date: labelForMonthKey(key),
+        net: inflow - release,
+        inflowTotal: inflow,
+        releaseTotal: release,
+      };
+    });
+  }, [damId, allResources]);
+
+  if (!damId) {
+    return (
+      <div className={`graph2Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
+        <div>Please open a specific dam to view Graph 2.</div>
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div className={`graph2Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
+        <div>Loading Graph 2…</div>
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div className={`graph2Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
+        <div>Could not load data.</div>
+      </div>
+    );
+  }
+  if (!chartData.length) {
+    return (
+      <div className={`graph2Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
+        <div>No data available.</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="graph2Container">
+      {/* ✅ Added Title */}
+      <h2 style={{ textAlign: 'center', marginBottom: '12px', fontSize: '1.2rem' }}>
+        Net Inflow vs Release (Last 12 Months)
+      </h2>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={chartData} margin={{ top: 10, right: 30, bottom: 36, left: 10 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="date"
+            interval={0}
+            tickMargin={12}
+            minTickGap={0}
+            tickLine={false}
+            tick={<RotatedTick />}
+          />
+          <YAxis />
+          <Tooltip content={<NetTooltip />} />
+          <ReferenceLine y={0} stroke="#111827" />
+          <Line
+            type="monotone"
+            dataKey="net"
+            name="Net (Inflow − Release)"
+            stroke="#3b82f6"
+            strokeWidth={2}
+            dot={{ r: 3 }}
+            activeDot={{ r: 5 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 export default Graph2;
