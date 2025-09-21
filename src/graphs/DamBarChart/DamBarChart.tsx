@@ -1,7 +1,5 @@
 // src/graphs/DamBarChart/DamBarChart.tsx
 
-// src/graphs/DamBarChart/DamBarChart.tsx
-
 import React, { useMemo } from 'react';
 import {
   BarChart,
@@ -18,16 +16,16 @@ import './DamBarChart.scss';
 type DamBarDatum = {
   dam_id: string;
   dam_name: string;
-  capacity: number; // ML total capacity
-  filled: number;   // ML currently filled
+  capacity: number;
+  filled: number;
 };
 
 type Props = {
   data?: DamBarDatum[];
 };
 
-const BLUE = '#1e3a8a';  // deep blue
-const TURQ = '#14b8a6';  // turquoise
+const BLUE = '#1e3a8a';
+const TURQ = '#14b8a6';
 
 const fmtML = (n: number) => `${Math.round(n).toLocaleString()} ML`;
 
@@ -82,20 +80,18 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
           labelFormatter={(label: string) => `Dam: ${label}`}
         />
 
-        {/* Base capacity bar */}
         <Bar
           dataKey="capacity"
           name="Capacity"
           fill={BLUE}
-          barSize={80} // doubled width
+          barSize={80}
         />
 
-        {/* Overlay % full bar */}
         <Bar
           dataKey="pct"
           name="% Full"
           fill={TURQ}
-          barSize={80} // match base bar
+          barSize={80}
           shape={(props: any) => {
             const { x, y, width, height, payload } = props;
             const pct: number = payload?.pct ?? 0;

@@ -7,7 +7,7 @@ import './DamBubbleChart.scss';
 type Dam = {
   dam_id: string;
   dam_name: string;
-  capacity: number; // must be a positive number
+  capacity: number;
 };
 
 type Props = {
@@ -16,14 +16,12 @@ type Props = {
   height?: number;
 };
 
-const COLORS = ['#3b82f6', '#06b6d4']; // blue & turquoise
+const COLORS = ['#3b82f6', '#06b6d4'];
 
 const DamBubbleChart: React.FC<Props> = ({ data, width = 800, height = 600 }) => {
-  // Compute packed layout
   const nodes = useMemo(() => {
     if (!data?.length) return [];
 
-    // Wrap in a hierarchy so d3.pack can work
     const root = d3
       .hierarchy({ children: data } as any)
       .sum((d: any) => d.capacity)

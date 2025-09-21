@@ -12,11 +12,9 @@ import { useGetAllDamsQuery, useGetAllLatestDataQuery } from '../../services/dam
 const DashboardPage: React.FC = () => {
   const [index, setIndex] = useState(0);
 
-  // fetch dams (capacities) and latest fill levels
   const { data: dams = [] } = useGetAllDamsQuery();
   const { data: latest = [] } = useGetAllLatestDataQuery();
 
-  // prepare bubble chart dataset
   const bubbleData = useMemo(
     () =>
       dams
@@ -29,7 +27,6 @@ const DashboardPage: React.FC = () => {
     [dams]
   );
 
-  // prepare bar chart dataset
   const barData = useMemo(() => {
     const latestById = new Map(latest.map((l) => [l.dam_id, l]));
     return dams
