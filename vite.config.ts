@@ -1,9 +1,9 @@
 // vite.config.ts
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react'; // ⬅️ add this
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [react()], // ⬅️ enable React JSX transform
+  plugins: [react()],
 
   server: {
     proxy: {
@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
 
-  // ⬇️ Vitest config
+  // Vitest config
   test: {
     environment: 'jsdom',
     setupFiles: ['src/test/setup.ts'],
@@ -28,6 +28,10 @@ export default defineConfig({
     css: true,
     coverage: {
       reporter: ['text', 'lcov'],
+    },
+    // ⬇️ Add moduleNameMapper–style handling for assets
+    alias: {
+      '\\.(mp4|webm|png|jpg|jpeg|gif|svg)$': '/src/test/__mocks__/fileMock.ts',
     },
   },
 });
