@@ -8,12 +8,10 @@ const renderWithRouter = (ui: React.ReactElement) =>
 
 test('shows clamped percentage and proper aria-label', () => {
   renderWithRouter(<DamStorageTile damId="WARR" name="Warragamba" pct={132} />);
-  // aria-label includes "100% full" because pct is clamped to 100
   expect(
     screen.getByRole('link', { name: /Warragamba: 100% full/i })
   ).toBeInTheDocument();
 
-  // Center label shows "100%"
   expect(screen.getByText('100%')).toBeInTheDocument();
 });
 

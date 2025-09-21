@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 import type { Mock } from 'vitest';
 
-// --- Hoisted mocks (so factories can see them) ---
 const apiMocks = vi.hoisted(() => ({
   useGetDamByIdQuery: vi.fn(),
 }));
@@ -12,7 +11,6 @@ const rrdMocks = vi.hoisted(() => ({
   useParams: vi.fn(),
 }));
 
-// --- Module mocks ---
 vi.mock('../../services/damsApi', () => apiMocks);
 
 vi.mock('react-router-dom', async () => {
@@ -23,13 +21,11 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-// Stub the heavy chart components so Recharts doesn't render in tests
 vi.mock('../../graphs/Graph1/Graph1', () => ({ default: () => <div>Graph 1 stub</div> }));
 vi.mock('../../graphs/Graph2/Graph2', () => ({ default: () => <div>Graph 2 stub</div> }));
 vi.mock('../../graphs/Graph3/Graph3', () => ({ default: () => <div>Graph 3 stub</div> }));
 vi.mock('../../graphs/Graph4/Graph4', () => ({ default: () => <div>Graph 4 stub</div> }));
 
-// --- Imports AFTER mocks are registered ---
 import DamDetailPage from './DamDetailPage';
 import { useParams } from 'react-router-dom';
 import * as damsApi from '../../services/damsApi';
@@ -52,13 +48,10 @@ describe('DamDetailPage', () => {
       </MemoryRouter>
     );
 
-    // Back to Home link
     expect(screen.getByRole('link', { name: /back to home/i })).toBeInTheDocument();
 
-    // Title during loading
     expect(screen.getByText('Loading…')).toBeInTheDocument();
 
-    // Four panels linking to each graph
     const panels = screen.getAllByRole('link', { name: /open .* in full screen/i });
     expect(panels).toHaveLength(4);
 
@@ -70,7 +63,6 @@ describe('DamDetailPage', () => {
       '/dams/WARR/graph/graph4',
     ]);
 
-    // Stub content present
     expect(screen.getByText(/graph 1 stub/i)).toBeInTheDocument();
     expect(screen.getByText(/graph 2 stub/i)).toBeInTheDocument();
     expect(screen.getByText(/graph 3 stub/i)).toBeInTheDocument();
@@ -89,10 +81,8 @@ describe('DamDetailPage', () => {
       </MemoryRouter>
     );
 
-    // Title becomes dam name
     expect(screen.getByText('Warragamba')).toBeInTheDocument();
 
-    // Panels and links still correct
     const region = screen.getByRole('region', { name: /dam detail layout/i });
     const links = within(region).getAllByRole('link', { name: /open .* in full screen/i });
     expect(links).toHaveLength(4);

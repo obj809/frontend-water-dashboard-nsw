@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import SearchBar from './SearchBar';
 
-// Mock the RTK Query hook so we don't need MSW here
 vi.mock('../../services/damsApi', () => ({
   useGetAllDamsQuery: () => ({
     isLoading: false,
@@ -17,7 +16,6 @@ vi.mock('../../services/damsApi', () => ({
   }),
 }));
 
-// Small harness so the SearchBar can manage its "value" prop realistically
 function Harness({
   onSearch = vi.fn(),
   autoFocus = true,
@@ -34,7 +32,6 @@ function Harness({
         onSearch={onSearch}
         autoFocus={autoFocus}
       />
-      {/* Outside-click target */}
       <button aria-label="outside" />
     </div>
   );
@@ -49,18 +46,15 @@ describe('SearchBar', () => {
     await userEvent.click(input);
     await userEvent.type(input, 'warr');
 
-    // Dropdown shows filtered results
     const listbox = await screen.findByRole('listbox');
     expect(within(listbox).getAllByRole('option').length).toBe(1);
     expect(within(listbox).getByRole('option', { name: /warragamba/i })).toBeInTheDocument();
 
-    // ArrowDown to highlight first, then Enter to select
     await userEvent.keyboard('{ArrowDown}{Enter}');
 
     expect(onSearch).toHaveBeenCalledTimes(1);
-    expect(onSearch).toHaveBeenCalledWith('WARR'); // selected dam_id
+    expect(onSearch).toHaveBeenCalledWith('WARR');
 
-    // Input is cleared and dropdown closed
     expect((input as HTMLInputElement).value).toBe('');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
@@ -86,12 +80,10 @@ describe('SearchBar', () => {
     await userEvent.click(input);
     await userEvent.type(input, 'sho');
 
-    // Escape should close + clear
     await userEvent.keyboard('{Escape}');
     expect((input as HTMLInputElement).value).toBe('');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
-    // Type again and then click outside to close + clear
     await userEvent.click(input);
     await userEvent.type(input, 'nep');
     expect(await screen.findByRole('listbox')).toBeInTheDocument();

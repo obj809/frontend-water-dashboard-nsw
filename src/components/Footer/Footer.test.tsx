@@ -5,9 +5,8 @@ import Footer from './Footer';
 
 describe('Footer', () => {
   beforeAll(() => {
-    // Freeze time so the year is deterministic
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2025-09-22T00:00:00+10:00')); // pick any date you like
+    vi.setSystemTime(new Date('2025-09-22T00:00:00+10:00'));
   });
 
   afterAll(() => {
@@ -19,7 +18,6 @@ describe('Footer', () => {
     const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
 
-    // Year comes from new Date().getFullYear()
     expect(
       screen.getByText(/© 2025 Water Dashboard NSW/i)
     ).toBeInTheDocument();

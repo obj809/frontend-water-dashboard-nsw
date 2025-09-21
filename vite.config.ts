@@ -29,7 +29,6 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'lcov'],
     },
-    // ⬇️ Add moduleNameMapper–style handling for assets
     alias: {
       '\\.(mp4|webm|png|jpg|jpeg|gif|svg)$': '/src/test/__mocks__/fileMock.ts',
     },

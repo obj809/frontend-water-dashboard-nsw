@@ -6,15 +6,15 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "node", // Use "node" for compatibility with most environments
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./dist/types-node",
-    "baseUrl": "./", // Ensures paths are relative to the root
+    "baseUrl": "./",
     "paths": {
-      "@features/*": ["src/features/*"] // Alias for features
+      "@features/*": ["src/features/*"]
     }
   },
   "include": ["vite.config.ts", "src/**/*"]
