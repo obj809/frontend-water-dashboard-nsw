@@ -17,5 +17,5 @@
       "@features/*": ["src/features/*"]
     }
   },
-  "include": ["vite.config.ts", "src/**/*"]
+  "include": ["vite.config.ts"]
 }
