@@ -50,20 +50,14 @@ The goal of this project is to create an accessible, interactive dashboard for v
 - **Intuitive Navigation**: Implement smooth-scroll stacked pages for seamless browsing.
 
 ## Project Features
-- [x] Real-time dam data fetching via RTK Query with automatic caching
 - [x] Advanced search functionality to filter dams by name
 - [x] Interactive data visualizations using Recharts, Chart.js, and D3
-- [x] Stacked-pages layout with smooth scroll navigation
 - [x] Individual dam detail pages with comprehensive statistics
-- [x] Full-screen graph views for in-depth analysis
 - [x] Comprehensive test suite with Vitest and Testing Library
 
 ## Additions & Improvements
-- [ ] Implement historical comparison tool for dam levels across time periods
-- [ ] Add export functionality for graph data (CSV, PNG)
 - [ ] Integrate weather data to show rainfall correlations
 - [ ] Add alert system for critical storage levels
-- [ ] Implement dark mode theme
 - [ ] Add E2E testing with Playwright
 
 ## Learning Highlights
@@ -71,19 +65,15 @@ The goal of this project is to create an accessible, interactive dashboard for v
 - Integrating multiple charting libraries (Recharts, Chart.js, D3) for different visualization needs
 - Configuring Vite proxy for seamless backend communication during development
 - Implementing comprehensive test coverage with Vitest and Testing Library
-- Building responsive data visualizations that work across all device sizes
 
 ## Known Issues
-- Application requires backend API to be running; no offline mode currently implemented
 - Some touch interactions on complex charts may require refinement on mobile
 - Performance may degrade when rendering graphs with very large historical datasets
 
 ## Challenges
 - Configuring Vite proxy to seamlessly communicate with Flask backend
 - Evaluating and integrating multiple charting libraries for different use cases
-- Ensuring charts render correctly and remain interactive across all device sizes
 - Maintaining TypeScript type safety with dynamic API responses
-
 
 ## Contact Me
 - Visit my [LinkedIn](https://www.linkedin.com/in/obj809/) for more details.
