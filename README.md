@@ -41,7 +41,6 @@ The goal of this project is to create an accessible, interactive dashboard for v
 2. Install dependencies with `npm install`.
 3. Start the development server with `npm run dev`.
 4. Navigate to `http://localhost:5173` to view the dashboard.
-5. Use the search bar to find specific dams or scroll through the stacked pages.
 
 ## Design Goals
 - **Data-First Interface**: Prioritize clear, accurate visualization of complex water data.
