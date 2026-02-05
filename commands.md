@@ -6,12 +6,9 @@ npm install
 
 npm run dev
 
-
-
 # Scripts
 
 node smoke_api.js
-
 
 # Tests
 
