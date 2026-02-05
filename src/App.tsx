@@ -69,10 +69,10 @@ const App: React.FC = () => {
 
             <Route path="/graphs/storage" element={<DamStorageOverview />} />
             <Route path="/graphs/release" element={<DamBarChart />} />
-            <Route path="/graphs/graph1" element={<Graph1 />} />
-            <Route path="/graphs/graph2" element={<Graph2 />} />
-            <Route path="/graphs/graph3" element={<Graph3 />} />
-            <Route path="/graphs/graph4" element={<Graph4 />} />
+            <Route path="/graphs/graph1/:damId" element={<Graph1 fullScreen />} />
+            <Route path="/graphs/graph2/:damId" element={<Graph2 fullScreen />} />
+            <Route path="/graphs/graph3/:damId" element={<Graph3 fullScreen />} />
+            <Route path="/graphs/graph4/:damId" element={<Graph4 fullScreen />} />
 
             <Route path="/dams/:damId" element={<DamDetailPage />} />
             <Route path="/dams/:damId/graph/:graphId" element={<DamGraphPage />} />

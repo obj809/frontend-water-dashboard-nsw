@@ -24,7 +24,7 @@ type MetricKey =
   | 'avg_storage_inflow'
   | 'avg_storage_release';
 
-type Horizon = '12m' | '5y' | '20y';
+type Horizon = '12m' | '5y' | '10y';
 
 const METRICS: Array<{ key: MetricKey; label: string; unit: '%' | 'ML' }> = [
   { key: 'avg_percentage_full', label: '% Full', unit: '%' },
@@ -93,28 +93,28 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
       avg_percentage_full: {
         '12m': latest.avg_percentage_full_12_months == null ? null : Number(latest.avg_percentage_full_12_months),
         '5y' : latest.avg_percentage_full_5_years   == null ? null : Number(latest.avg_percentage_full_5_years),
-        '20y': latest.avg_percentage_full_20_years  == null ? null : Number(latest.avg_percentage_full_20_years),
+        '10y': latest.avg_percentage_full_10_years  == null ? null : Number(latest.avg_percentage_full_10_years),
       },
       avg_storage_volume: {
         '12m': latest.avg_storage_volume_12_months == null ? null : Number(latest.avg_storage_volume_12_months),
         '5y' : latest.avg_storage_volume_5_years   == null ? null : Number(latest.avg_storage_volume_5_years),
-        '20y': latest.avg_storage_volume_20_years  == null ? null : Number(latest.avg_storage_volume_20_years),
+        '10y': latest.avg_storage_volume_10_years  == null ? null : Number(latest.avg_storage_volume_10_years),
       },
       avg_storage_inflow: {
         '12m': latest.avg_storage_inflow_12_months == null ? null : Number(latest.avg_storage_inflow_12_months),
         '5y' : latest.avg_storage_inflow_5_years   == null ? null : Number(latest.avg_storage_inflow_5_years),
-        '20y': latest.avg_storage_inflow_20_years  == null ? null : Number(latest.avg_storage_inflow_20_years),
+        '10y': latest.avg_storage_inflow_10_years  == null ? null : Number(latest.avg_storage_inflow_10_years),
       },
       avg_storage_release: {
         '12m': latest.avg_storage_release_12_months == null ? null : Number(latest.avg_storage_release_12_months),
         '5y' : latest.avg_storage_release_5_years   == null ? null : Number(latest.avg_storage_release_5_years),
-        '20y': latest.avg_storage_release_20_years  == null ? null : Number(latest.avg_storage_release_20_years),
+        '10y': latest.avg_storage_release_10_years  == null ? null : Number(latest.avg_storage_release_10_years),
       },
     };
 
     const rows = METRICS.map(({ key, label, unit }) => {
       const vals = rawByMetric[key];
-      const nums = (['12m', '5y', '20y'] as Horizon[])
+      const nums = (['12m', '5y', '10y'] as Horizon[])
         .map((h) => vals[h])
         .filter((v): v is number => typeof v === 'number' && !Number.isNaN(v));
       const max = Math.max(0, ...nums);
@@ -126,10 +126,10 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
         unit,
         '12m': norm(vals['12m']),
         '5y' : norm(vals['5y']),
-        '20y': norm(vals['20y']),
+        '10y': norm(vals['10y']),
         raw_12m: vals['12m'],
         raw_5y : vals['5y'],
-        raw_20y: vals['20y'],
+        raw_10y: vals['10y'],
       };
     });
 
@@ -137,7 +137,7 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
       (r) =>
         (r.raw_12m != null && !Number.isNaN(r.raw_12m)) ||
         (r.raw_5y  != null && !Number.isNaN(r.raw_5y)) ||
-        (r.raw_20y != null && !Number.isNaN(r.raw_20y))
+        (r.raw_10y != null && !Number.isNaN(r.raw_10y))
     );
 
     return { chartData: rows, hasAny: anyData };
@@ -173,8 +173,8 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
   }
 
   return (
-    <div className="graph4Container">
-      <h2 className="graph4Title">Dam Fingerprint — 12m vs 5y vs 20y</h2>
+    <div className={`graph4Container ${fullScreen ? 'is-fullscreen' : ''}`}>
+      <h2 className="graph4Title">Dam Fingerprint — 12m vs 5y vs 10y</h2>
 
       <ResponsiveContainer width="100%" height="100%">
           <RadarChart
@@ -193,7 +193,7 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
               <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.40" />
               <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.12" />
             </linearGradient>
-            <linearGradient id="grad20y" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="grad10y" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.36" />
               <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.10" />
             </linearGradient>
@@ -241,10 +241,10 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
             style={{ filter: 'url(#softShadow)' }}
           />
           <Radar
-            name="20y"
-            dataKey="20y"
+            name="10y"
+            dataKey="10y"
             stroke="#8b5cf6"
-            fill="url(#grad20y)"
+            fill="url(#grad10y)"
             fillOpacity={1}
             strokeWidth={2}
             isAnimationActive

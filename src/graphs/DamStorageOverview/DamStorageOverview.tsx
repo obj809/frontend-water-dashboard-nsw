@@ -19,7 +19,7 @@ const DamStorageOverview: React.FC<Props> = ({ fullScreen = false }) => {
       (a.dam_name ?? '').localeCompare(b.dam_name ?? '')
     );
     return sorted
-      .filter((r) => r.dam_name !== 'Cochrane Dam')
+      .filter((r) => r.dam_name !== 'Cochrane Dam' && r.dam_name !== 'Lake Brewster')
       .map((r) => {
         const pct =
           typeof r.percentage_full === 'number'

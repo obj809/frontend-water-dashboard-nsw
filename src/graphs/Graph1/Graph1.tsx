@@ -35,7 +35,7 @@ const parseISO = (iso: string) => {
 
 const RotatedTick: React.FC<any> = ({ x, y, payload }) => (
   <g transform={`translate(${x},${y})`}>
-    <text dy={12} textAnchor="end" fontSize={12} transform="rotate(-30)">
+    <text dy={12} textAnchor="end" fontSize={12} transform="rotate(-30)" fill="currentColor">
       {payload?.value}
     </text>
   </g>
@@ -117,7 +117,7 @@ const Graph1: React.FC<Props> = ({ fullScreen = false }) => {
   }
 
   return (
-    <div className="graph1Container">
+    <div className={`graph1Container ${fullScreen ? 'is-fullscreen' : ''}`}>
       <h2 className="graph1Title">Percentage Full (Last 12 Months)</h2>
 
       <ResponsiveContainer width="100%" height="100%">

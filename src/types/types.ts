@@ -32,30 +32,30 @@ export interface DamAnalysis {
   analysis_date: string;
   avg_percentage_full_12_months?: number | null;
   avg_percentage_full_5_years?: number | null;
-  avg_percentage_full_20_years?: number | null;
+  avg_percentage_full_10_years?: number | null;
   avg_storage_volume_12_months?: number | null;
   avg_storage_volume_5_years?: number | null;
-  avg_storage_volume_20_years?: number | null;
+  avg_storage_volume_10_years?: number | null;
   avg_storage_inflow_12_months?: number | null;
   avg_storage_inflow_5_years?: number | null;
-  avg_storage_inflow_20_years?: number | null;
+  avg_storage_inflow_10_years?: number | null;
   avg_storage_release_12_months?: number | null;
   avg_storage_release_5_years?: number | null;
-  avg_storage_release_20_years?: number | null;
+  avg_storage_release_10_years?: number | null;
 }
 
 export interface OverallDamAnalysis {
   analysis_date: string;
   avg_percentage_full_12_months?: number | null;
   avg_percentage_full_5_years?: number | null;
-  avg_percentage_full_20_years?: number | null;
+  avg_percentage_full_10_years?: number | null;
   avg_storage_volume_12_months?: number | null;
   avg_storage_volume_5_years?: number | null;
-  avg_storage_volume_20_years?: number | null;
+  avg_storage_volume_10_years?: number | null;
   avg_storage_inflow_12_months?: number | null;
   avg_storage_inflow_5_years?: number | null;
-  avg_storage_inflow_20_years?: number | null;
+  avg_storage_inflow_10_years?: number | null;
   avg_storage_release_12_months?: number | null;
   avg_storage_release_5_years?: number | null;
-  avg_storage_release_20_years?: number | null;
+  avg_storage_release_10_years?: number | null;
 }

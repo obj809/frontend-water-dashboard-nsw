@@ -33,7 +33,7 @@ const parseISO = (iso: string) => {
 };
 const RotatedTick: React.FC<any> = ({ x, y, payload }) => (
   <g transform={`translate(${x},${y})`}>
-    <text dy={12} textAnchor="end" fontSize={12} transform="rotate(-30)">
+    <text dy={12} textAnchor="end" fontSize={12} transform="rotate(-30)" fill="currentColor">
       {payload?.value}
     </text>
   </g>
@@ -132,7 +132,7 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
   }
 
   return (
-    <div className="graph2Container">
+    <div className={`graph2Container ${fullScreen ? 'is-fullscreen' : ''}`}>
       <h2 style={{ textAlign: 'center', marginBottom: '12px', fontSize: '1.2rem' }}>
         Net Inflow vs Release (Last 12 Months)
       </h2>

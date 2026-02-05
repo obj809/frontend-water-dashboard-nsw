@@ -55,14 +55,14 @@ const Graph3: React.FC<Props> = ({ fullScreen = false }) => {
 
     const v12 = latest.avg_percentage_full_12_months;
     const v5  = latest.avg_percentage_full_5_years;
-    const v20 = latest.avg_percentage_full_20_years;
+    const v20 = latest.avg_percentage_full_10_years;
 
     if ([v12, v5, v20].every((v) => v == null)) return [];
 
     return [
       { horizon: '12m', value: v12 == null ? null : Number(v12) },
       { horizon: '5y',  value: v5  == null ? null : Number(v5)  },
-      { horizon: '20y', value: v20 == null ? null : Number(v20) },
+      { horizon: '10y', value: v20 == null ? null : Number(v20) },
     ];
   }, [damId, data]);
 
@@ -99,7 +99,7 @@ const Graph3: React.FC<Props> = ({ fullScreen = false }) => {
   const blueShades = ['#60a5fa', '#3b82f6', '#2563eb'];
 
   return (
-    <div className="graph3Container">
+    <div className={`graph3Container ${fullScreen ? 'is-fullscreen' : ''}`}>
       <h2 className="graph3Title">Average % Full by Horizon</h2>
 
       <ResponsiveContainer width="100%" height="100%">
