@@ -22,6 +22,16 @@ const DamStorageTile: React.FC<Props> = ({ damId, name, pct }) => {
   const remainder = 100 - fill;
   const hasData = pct != null;
 
+  // Dynamic color based on fill percentage - all shades of blue
+  const getFillColor = (percentage: number): string => {
+    if (percentage >= 75) return '#1e40af'; // Dark blue for high levels
+    if (percentage >= 50) return '#3b82f6'; // Medium blue for good levels
+    if (percentage >= 25) return '#60a5fa'; // Light blue for medium levels
+    return '#93c5fd'; // Very light blue for low levels
+  };
+
+  const fillColor = getFillColor(fill);
+
   const data = [
     { name: 'Full', value: fill },
     { name: 'Remaining', value: remainder },
@@ -46,19 +56,19 @@ const DamStorageTile: React.FC<Props> = ({ damId, name, pct }) => {
               dataKey="value"
               startAngle={90}
               endAngle={-270}
-              innerRadius="68%"
-              outerRadius="92%"
+              innerRadius="65%"
+              outerRadius="90%"
               stroke="none"
               isAnimationActive={false}
             >
-              <Cell fill="#3b82f6" />
+              <Cell fill={fillColor} />
               <Cell fill="#e5e7eb" />
               <Label
                 value={hasData ? `${Math.round(fill)}%` : '—'}
                 position="center"
-                fontSize={18}
-                fontWeight={700}
-                fill="#111827"
+                fontSize={20}
+                fontWeight={800}
+                fill="#1e293b"
               />
             </Pie>
           </PieChart>

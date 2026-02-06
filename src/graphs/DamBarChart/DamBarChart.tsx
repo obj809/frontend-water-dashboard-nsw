@@ -164,8 +164,14 @@ const FullHeightOverlay: React.FC<FullHeightOverlayProps> = ({
   };
 
   // Use the parent chart's coordinate system
-  const overlayY = 0;
-  const overlayHeight = 1000; // Large enough to cover any reasonable chart
+  // Make the overlay very tall and start above the chart to ensure full coverage
+  const overlayY = -200;
+  const overlayHeight = 10000; // Large enough to cover any reasonable chart
+
+  // Expand the overlay width to cover spacing on both sides of the bar
+  const spacingPadding = 25; // pixels to add on each side
+  const overlayX = x - spacingPadding;
+  const overlayWidth = width + (spacingPadding * 2);
 
   return (
     <g
@@ -178,11 +184,11 @@ const FullHeightOverlay: React.FC<FullHeightOverlayProps> = ({
       role="button"
       aria-label={`View details for ${payload?.dam || 'dam'}`}
     >
-      {/* Transparent clickable area that covers the entire column height */}
+      {/* Transparent clickable area that covers the entire column height and width including spacing */}
       <rect
-        x={x}
+        x={overlayX}
         y={overlayY}
-        width={width}
+        width={overlayWidth}
         height={overlayHeight}
         fill="transparent"
         className="column-overlay-rect"
@@ -190,9 +196,9 @@ const FullHeightOverlay: React.FC<FullHeightOverlayProps> = ({
       />
       {/* Visual focus indicator (only visible on keyboard focus) */}
       <rect
-        x={x - 2}
+        x={overlayX - 2}
         y={overlayY}
-        width={width + 4}
+        width={overlayWidth + 4}
         height={overlayHeight}
         fill="none"
         stroke="#3b82f6"
@@ -275,12 +281,27 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
           style={{ pointerEvents: 'none' }}
         />
         <Tooltip
-          formatter={(value: number | string, name: string) => {
-            if (name === 'Capacity') return fmtML(Number(value));
-            if (name === 'Current Storage') return fmtML(Number(value));
-            return value;
+          content={({ active, payload }) => {
+            if (!active || !payload || !payload.length) return null;
+            const data = payload[0].payload;
+            return (
+              <div className="dbc-tooltip-card">
+                <div className="dbc-tooltip-title">Dam: {data.dam}</div>
+                <div className="dbc-tooltip-line">
+                  <span>Capacity:</span>
+                  <span>{fmtML(data.capacity)}</span>
+                </div>
+                <div className="dbc-tooltip-line">
+                  <span>Current Storage:</span>
+                  <span>{fmtML(data.filled)}</span>
+                </div>
+                <div className="dbc-tooltip-line">
+                  <span>Fill Level:</span>
+                  <span>{data.pctText}</span>
+                </div>
+              </div>
+            );
           }}
-          labelFormatter={(label: string) => `Dam: ${label}`}
         />
 
         {/* Filled water bar - no pointer events */}
@@ -299,11 +320,6 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
               className="filled-bar-cell"
             />
           ))}
-          <LabelList
-            dataKey="pctText"
-            position="top"
-            style={{ fill: '#111827', fontWeight: 600, fontSize: 11, pointerEvents: 'none' }}
-          />
         </Bar>
 
         {/* Capacity bar - no pointer events */}
