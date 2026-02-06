@@ -221,8 +221,10 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
       .sort((a, b) => a.capacity - b.capacity)
       .map((d, index) => {
         const pct = d.capacity > 0 ? (d.filled / d.capacity) * 100 : 0;
+        // Remove "Reservoir" suffix from dam names for cleaner display
+        const displayName = d.dam_name.replace(/\s+Reservoir$/i, '');
         return {
-          dam: d.dam_name,
+          dam: displayName,
           damId: d.dam_id,
           capacity: d.capacity,
           filled: d.filled,
