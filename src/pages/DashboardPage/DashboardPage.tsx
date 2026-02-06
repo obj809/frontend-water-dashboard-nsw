@@ -31,6 +31,7 @@ const DashboardPage: React.FC = () => {
     const latestById = new Map(latest.map((l) => [l.dam_id, l]));
     return dams
       .filter((d) => d.full_volume && d.full_volume > 0)
+      .filter((d) => latestById.has(d.dam_id)) // Only include dams with latest_data
       .map((d) => {
         const latestRow = latestById.get(d.dam_id);
         return {
@@ -39,7 +40,8 @@ const DashboardPage: React.FC = () => {
           capacity: Number(d.full_volume ?? 0),
           filled: Number(latestRow?.storage_volume ?? 0),
         };
-      });
+      })
+      .filter((d) => d.dam_name !== 'Lake Brewster'); // Exclude Lake Brewster (no API data)
   }, [dams, latest]);
 
   const graphs = [

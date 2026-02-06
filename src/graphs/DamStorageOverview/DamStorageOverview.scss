@@ -7,29 +7,43 @@
   height: 100%;
   background: #ffffff;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.storageOverviewHeader {
+  text-align: center;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
 }
 
 .storageOverviewTitle {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  text-align: center;
   color: #111827;
-  margin: 16px 0;
+  margin: 0 0 0.5rem 0;
+}
+
+.storageOverviewSubtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
 }
 
 .storageGrid {
   flex: 1;
   width: 100%;
-  height: 100%;
   display: grid;
   gap: 14px;
   padding: 12px;
   box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
 
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-auto-rows: minmax(160px, 1fr);
   justify-items: stretch;
   align-items: stretch;
+  align-content: start;
 }
 
 .storageGrid.is-fullscreen {
@@ -65,13 +79,17 @@
 .storageTile.is-muted { opacity: 0.65; }
 
 .tileTitle {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #111827;
   text-align: center;
+  line-height: 1.3;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .donutWrap {

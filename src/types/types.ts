@@ -59,3 +59,7 @@ export interface OverallDamAnalysis {
   avg_storage_release_5_years?: number | null;
   avg_storage_release_10_years?: number | null;
 }
+
+export interface Metadata {
+  latest_data_date: string | null;
+}

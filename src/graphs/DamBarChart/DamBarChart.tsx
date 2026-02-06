@@ -49,15 +49,28 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
   }, [data]);
 
   if (!chartData.length) {
-    return <div style={{ padding: 16 }}>No dam data available</div>;
+    return (
+      <div className="dam-bar-chart-wrap">
+        <div className="dam-bar-header">
+          <h2 className="dam-bar-title">Dam Storage Capacity & Fill Levels</h2>
+          <p className="dam-bar-subtitle">Comparison of total capacity and current water storage across NSW dams</p>
+        </div>
+        <div className="bar-placeholder">No dam data available</div>
+      </div>
+    );
   }
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart
-        data={chartData}
-        margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-      >
+    <div className="dam-bar-chart-wrap">
+      <div className="dam-bar-header">
+        <h2 className="dam-bar-title">Dam Storage Capacity & Fill Levels</h2>
+        <p className="dam-bar-subtitle">Comparison of total capacity and current water storage across NSW dams</p>
+      </div>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={chartData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+        >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="dam"
@@ -68,53 +81,39 @@ const DamBarChart: React.FC<Props> = ({ data = [] }) => {
         />
         <YAxis
           tickFormatter={(v: number) => `${(v / 1_000_000).toFixed(1)}M`}
-          label={{ value: 'Capacity (ML)', angle: -90, position: 'insideLeft' }}
+          label={{ value: 'Volume (ML)', angle: -90, position: 'insideLeft' }}
         />
         <Tooltip
           formatter={(value: any, name: string) => {
-            if (name === 'capacity') return fmtML(Number(value));
-            if (name === 'filled') return fmtML(Number(value));
-            if (name === 'pct') return `${Number(value).toFixed(1)}% full`;
+            if (name === 'Capacity') return fmtML(Number(value));
+            if (name === 'Current Storage') return fmtML(Number(value));
             return value;
           }}
           labelFormatter={(label: string) => `Dam: ${label}`}
         />
 
         <Bar
-          dataKey="capacity"
-          name="Capacity"
-          fill={BLUE}
-          barSize={80}
-        />
-
-        <Bar
-          dataKey="pct"
-          name="% Full"
+          dataKey="filled"
+          name="Current Storage"
           fill={TURQ}
-          barSize={80}
-          shape={(props: any) => {
-            const { x, y, width, height, payload } = props;
-            const pct: number = payload?.pct ?? 0;
-            const overlayH = (pct / 100) * height;
-            return (
-              <rect
-                x={x}
-                y={y + (height - overlayH)}
-                width={width}
-                height={overlayH}
-                fill={TURQ}
-              />
-            );
-          }}
+          barSize={40}
         >
           <LabelList
             dataKey="pctText"
-            position="insideTop"
-            style={{ fill: '#ffffff', fontWeight: 700, fontSize: 12 }}
+            position="top"
+            style={{ fill: '#111827', fontWeight: 600, fontSize: 11 }}
           />
         </Bar>
+
+        <Bar
+          dataKey="capacity"
+          name="Capacity"
+          fill={BLUE}
+          barSize={40}
+        />
       </BarChart>
     </ResponsiveContainer>
+    </div>
   );
 };
 

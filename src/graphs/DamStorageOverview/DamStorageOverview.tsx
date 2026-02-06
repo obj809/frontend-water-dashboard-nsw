@@ -18,8 +18,10 @@ const DamStorageOverview: React.FC<Props> = ({ fullScreen = false }) => {
     const sorted = [...(latest as DamResource[])].sort((a, b) =>
       (a.dam_name ?? '').localeCompare(b.dam_name ?? '')
     );
+    // Filter out dams with no API data or incomplete data
+    const excludedDams = ['Cochrane Dam', 'Lake Brewster', 'Hume Dam'];
     return sorted
-      .filter((r) => r.dam_name !== 'Cochrane Dam' && r.dam_name !== 'Lake Brewster')
+      .filter((r) => !excludedDams.includes(r.dam_name ?? ''))
       .map((r) => {
         const pct =
           typeof r.percentage_full === 'number'
@@ -59,7 +61,10 @@ const DamStorageOverview: React.FC<Props> = ({ fullScreen = false }) => {
 
   return (
     <div className="storageOverviewWrapper">
-  
+      <div className="storageOverviewHeader">
+        <h2 className="storageOverviewTitle">Current Dam Storage Levels</h2>
+        <p className="storageOverviewSubtitle">Real-time storage capacity across NSW water infrastructure</p>
+      </div>
       <div className={`storageGrid ${fullScreen ? 'is-fullscreen' : ''}`}>
         {rows.map((row) => (
           <DamStorageTile key={row.damId} {...row} />

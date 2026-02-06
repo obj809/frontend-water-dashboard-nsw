@@ -9,12 +9,13 @@ import {
   DamResource,
   DamAnalysis,
   OverallDamAnalysis,
+  Metadata,
 } from '../types/types';
 
 export const damsApi = createApi({
   reducerPath: 'damsApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
-  tagTypes: ['Dams', 'Latest', 'Groups', 'Analyses', 'Overall', 'Resources'], // ← add 'Resources'
+  tagTypes: ['Dams', 'Latest', 'Groups', 'Analyses', 'Overall', 'Resources', 'Metadata'],
   endpoints: (build) => ({
     getAllDams: build.query<Dam[], void>({
       query: () => `/dams/`,
@@ -71,6 +72,11 @@ export const damsApi = createApi({
       query: (date) => `/overall_dam_analysis/${encodeURIComponent(date)}`,
       providesTags: (_res, _err, date) => [{ type: 'Overall', id: date }],
     }),
+
+    getMetadata: build.query<Metadata, void>({
+      query: () => `/metadata/`,
+      providesTags: () => [{ type: 'Metadata', id: 'LATEST' }],
+    }),
   }),
 });
 
@@ -86,4 +92,5 @@ export const {
   useGetAllOverallDamAnalysesQuery,
   useGetOverallDamAnalysisByDateQuery,
   useGetAllDamResourcesQuery,
+  useGetMetadataQuery,
 } = damsApi;

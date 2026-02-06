@@ -76,10 +76,10 @@ describe('DashboardPage', () => {
 
     const barProps = JSON.parse(barNode.textContent || '{}');
     const barIds = (barProps.data || []).map((d: any) => d.dam_id);
-    expect(barIds).toEqual(['A', 'C', 'E']);
+    expect(barIds).toEqual(['A', 'C']); // Only dams with latest_data
     const filledById: Record<string, number> = {};
     for (const d of (barProps.data || [])) filledById[d.dam_id] = d.filled;
-    expect(filledById).toEqual({ A: 100, C: 1250, E: 0 });
+    expect(filledById).toEqual({ A: 100, C: 1250 });
 
     fireEvent.click(screen.getByRole('button', { name: /next graph/i }));
     expect(screen.getByText(/storagegraph stub/i)).toBeInTheDocument();

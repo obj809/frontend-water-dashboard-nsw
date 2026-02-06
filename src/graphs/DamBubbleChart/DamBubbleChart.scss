@@ -1,20 +1,100 @@
 /* src/graphs/DamBubbleChart/DamBubbleChart.scss */
-.dbcWrap {
+.dbaWrap {
   width: 100%;
   height: 100%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
   background: #ffffff;
 }
 
-.dbcSvg {
-  width: 100%;
-  height: 100%;
+.dbaHeader {
+  text-align: center;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+.dbaTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.dbaSubtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
+}
+
+.dbaChartContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dbaSvg {
   display: block;
 }
 
 .dbcEmpty {
   color: #111827;
+}
+
+.bubbleGroup {
+  cursor: pointer;
+}
+
+.bubbleGroup:hover {
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+}
+
+.bubbleCircle {
+  transition: all 120ms ease;
+  pointer-events: all;
+}
+
+.bubbleGroup:hover .bubbleCircle {
+  opacity: 0.95 !important;
+}
+
+.bubbleLabel {
+  fill: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none !important;
+  user-select: none;
+  transition: opacity 120ms ease;
+}
+
+.bubbleLabel--hidden {
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+.bubbleGroup:hover .bubbleLabel--hidden {
+  opacity: 1;
+  pointer-events: none !important;
+}
+
+.bubbleCapacity {
+  fill: #4b5563;
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none !important;
+  user-select: none;
+  transition: opacity 120ms ease;
+}
+
+.bubbleCapacity--hidden {
+  opacity: 0;
+  pointer-events: none !important;
+}
+
+.bubbleGroup:hover .bubbleCapacity--hidden {
+  opacity: 1;
+  pointer-events: none !important;
 }
 
 .dbcBubble {

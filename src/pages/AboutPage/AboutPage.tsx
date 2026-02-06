@@ -3,8 +3,21 @@
 import React from 'react';
 import './AboutPage.scss';
 import Footer from '../../components/Footer/Footer';
+import { useGetMetadataQuery } from '../../services/damsApi';
 
 const AboutPage: React.FC = () => {
+  const { data: metadata } = useGetMetadataQuery();
+
+  const formatDate = (dateString: string | null | undefined) => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-AU', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
   return (
     <div className="AboutPage" aria-label="About Page">
       <main className="AboutPage__main">
@@ -19,7 +32,7 @@ const AboutPage: React.FC = () => {
             <p>
               🌐 This project is a data dashboard that visualises live and historical dam
               information from the WaterNSW API. It combines a Flask backend, a React
-              frontend, and AWS pipelines for data processing and storage.
+              frontend, and pipelines for data processing and storage.
             </p>
             <p>
               🌱 By making this data accessible, the project helps raise awareness of water
@@ -28,6 +41,12 @@ const AboutPage: React.FC = () => {
           </div>
         </section>
       </main>
+
+      {metadata?.latest_data_date && (
+        <div className="about-page__data-date" aria-label="Latest Data Date">
+          Last updated: {formatDate(metadata.latest_data_date)}
+        </div>
+      )}
 
       <Footer />
     </div>

@@ -1,5 +1,32 @@
 /* src/graphs/DamBarChart/DamBarChart.scss */
 
+.dam-bar-chart-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.dam-bar-header {
+  text-align: center;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+.dam-bar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.dam-bar-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
+}
+
 .dam-bar-chart {
   width: 100%;
   height: 100%;
@@ -7,8 +34,7 @@
 }
 
 .bar-placeholder {
-  width: 100%;
-  height: 100%;
+  flex: 1;
   display: grid;
   place-items: center;
   color: #111827;
