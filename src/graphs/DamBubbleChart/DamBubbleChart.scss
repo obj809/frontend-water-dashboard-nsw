@@ -5,11 +5,14 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
+  min-height: 300px;
+  min-width: 300px;
 }
 
 .dbaHeader {
   text-align: center;
   padding: 1rem 1.5rem 0.5rem 1.5rem;
+  flex-shrink: 0;
 }
 
 .dbaTitle {
@@ -32,10 +35,71 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  min-height: 0;
+  position: relative;
 }
 
 .dbaSvg {
   display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+// Responsive breakpoints
+@media (max-width: 1200px) {
+  .dbaTitle {
+    font-size: 1.3rem;
+  }
+
+  .dbaSubtitle {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dbaHeader {
+    padding: 0.75rem 1rem 0.25rem 1rem;
+  }
+
+  .dbaTitle {
+    font-size: 1.1rem;
+  }
+
+  .dbaSubtitle {
+    font-size: 0.8rem;
+  }
+
+  .bubbleLabel {
+    font-size: 12px;
+  }
+
+  .bubbleCapacity {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dbaHeader {
+    padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+  }
+
+  .dbaTitle {
+    font-size: 1rem;
+  }
+
+  .dbaSubtitle {
+    font-size: 0.75rem;
+  }
+
+  .bubbleLabel {
+    font-size: 10px;
+  }
+
+  .bubbleCapacity {
+    font-size: 9px;
+  }
 }
 
 .dbcEmpty {
@@ -44,6 +108,15 @@
 
 .bubbleGroup {
   cursor: pointer;
+  // Remove default focus outline (will be replaced with focus-visible)
+  outline: none;
+}
+
+// Show focus outline only for keyboard navigation, not mouse clicks
+.bubbleGroup:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
 .bubbleGroup:hover {

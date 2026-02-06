@@ -62,3 +62,79 @@
   font-size: 0.95rem;
   color: #111827;
 }
+
+// Clickable column overlay styles
+.column-overlay-group {
+  cursor: pointer !important;
+  // Remove default focus outline (will be replaced with custom focus indicator)
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.column-overlay-rect {
+  cursor: pointer !important;
+  pointer-events: all !important;
+}
+
+.column-focus-outline {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+// Only show focus outline when using keyboard navigation
+.column-overlay-group.keyboard-focused .column-focus-outline {
+  opacity: 1;
+}
+
+// Ensure all chart elements except overlay don't interfere with pointer
+.dam-bar-chart-wrap {
+  // Disable pointer events on all recharts layers by default
+  .recharts-layer {
+    pointer-events: none !important;
+  }
+
+  // Enable pointer events only for the overlay group
+  .column-overlay-group {
+    pointer-events: all !important;
+  }
+
+  // Explicitly disable pointer events on all interactive elements
+  .recharts-text,
+  .recharts-cartesian-axis-tick,
+  .recharts-label,
+  .recharts-label-list,
+  .recharts-bar-rectangle,
+  .recharts-rectangle {
+    pointer-events: none !important;
+  }
+
+  // Ensure axis and grid don't interfere
+  .recharts-cartesian-grid,
+  .recharts-xaxis,
+  .recharts-yaxis {
+    pointer-events: none !important;
+  }
+
+  // CSS-based hover effects using class toggle approach
+  // When a column is hovered, JS will add a 'column-hovered' class with data-hover-index
+  // This prevents React re-renders while still allowing dynamic styling
+
+  // Add smooth transitions to all bar cells
+  .recharts-bar-rectangle path,
+  .recharts-rectangle {
+    transition: fill 0.15s ease !important;
+  }
+
+  // When a column is being hovered, brighten matching bars
+  &[data-hover-index] {
+    .filled-bar-cell,
+    .capacity-bar-cell {
+      // Each cell will check if its index matches the hover index
+      // This is done via inline styles in JS for performance
+    }
+  }
+}

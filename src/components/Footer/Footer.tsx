@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
             WaterNSW
           </a>
           <a
-            href="https://github.com/cyberforge1/SydneyDamMonitoring"
+            href="https://github.com/obj809/water-dashboard-nsw"
             target="_blank"
             rel="noopener noreferrer"
           >

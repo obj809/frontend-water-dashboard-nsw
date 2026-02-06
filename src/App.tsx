@@ -10,9 +10,10 @@ import DashboardPage from './pages/DashboardPage/DashboardPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import DamDetailPage from './pages/DamDetailPage/DamDetailPage';
 import TestVideoPage from './components/TestVideoPage/TestVideoPage';
+import BubbleChartPage from './pages/BubbleChartPage/BubbleChartPage';
+import BarChartPage from './pages/BarChartPage/BarChartPage';
 
 import DamStorageOverview from './graphs/DamStorageOverview/DamStorageOverview';
-import DamBarChart from './graphs/DamBarChart/DamBarChart';
 
 import Graph1 from './graphs/Graph1/Graph1';
 import Graph2 from './graphs/Graph2/Graph2';
@@ -67,8 +68,14 @@ const App: React.FC = () => {
             <Route path="/dashboard" element={<StackedPages />} />
             <Route path="/about" element={<StackedPages />} />
 
+            <Route path="/graphs/current-storage-levels" element={<DamStorageOverview />} />
+            <Route path="/graphs/capacity-overview" element={<BubbleChartPage />} />
+            <Route path="/graphs/capacity-fill-levels" element={<BarChartPage />} />
+
+            {/* Legacy routes for backwards compatibility */}
             <Route path="/graphs/storage" element={<DamStorageOverview />} />
-            <Route path="/graphs/release" element={<DamBarChart />} />
+            <Route path="/graphs/release" element={<BarChartPage />} />
+
             <Route path="/graphs/graph1/:damId" element={<Graph1 fullScreen />} />
             <Route path="/graphs/graph2/:damId" element={<Graph2 fullScreen />} />
             <Route path="/graphs/graph3/:damId" element={<Graph3 fullScreen />} />
