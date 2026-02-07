@@ -45,8 +45,8 @@ const DashboardPage: React.FC = () => {
   }, [dams, latest]);
 
   const graphs = [
-    { id: 'bubble', Component: () => <DamBubbleChart data={bubbleData} /> },
     { id: 'storage', Component: StorageGraph },
+    { id: 'bubble', Component: () => <DamBubbleChart data={bubbleData} /> },
     { id: 'release', Component: () => <DamBarChart data={barData} /> },
   ];
 

@@ -36,7 +36,7 @@ describe('Footer', () => {
 
     expect(openData).toHaveAttribute('href', 'https://api.nsw.gov.au/Product/Index/26');
     expect(waterNSW).toHaveAttribute('href', 'https://www.waternsw.com.au/');
-    expect(github).toHaveAttribute('href', 'https://github.com/cyberforge1/SydneyDamMonitoring');
+    expect(github).toHaveAttribute('href', 'https://github.com/obj809/water-dashboard-nsw');
 
     for (const a of [openData, waterNSW, github]) {
       expect(a).toHaveAttribute('target', '_blank');
