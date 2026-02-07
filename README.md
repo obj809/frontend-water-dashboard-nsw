@@ -5,6 +5,7 @@
 ## Project Overview
 A modern data visualization dashboard displaying live and historical water dam information for New South Wales, Australia. Built with React, TypeScript, Redux Toolkit, and multiple charting libraries to provide real-time insights into dam storage levels, water inflows, and releases.
 
+- [Live Deployment](https://frontend-water-dashboard-nsw.netlify.app/)
 
 ## Screenshot
 <img src="./screen-recording.gif" alt="App Demo" width="960"/>
