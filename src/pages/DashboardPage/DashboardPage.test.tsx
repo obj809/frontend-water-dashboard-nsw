@@ -52,16 +52,13 @@ describe('DashboardPage', () => {
     });
   });
 
-  it('starts on the Storage graph and cycles right through Bubble → Bar → Storage', () => {
+  it('starts on the Bubble graph and cycles right through Storage → Bar → Bubble', () => {
     render(<DashboardPage />);
 
-    expect(screen.getByText(/storagegraph stub/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('bubble-props')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('bar-props')).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: /next graph/i }));
     const bubbleNode = screen.getByTestId('bubble-props');
     expect(bubbleNode).toBeInTheDocument();
+    expect(screen.queryByText(/storagegraph stub/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('bar-props')).not.toBeInTheDocument();
 
     const bubbleProps = JSON.parse(bubbleNode.textContent || '{}');
     const bubbleIds = (bubbleProps.data || []).map((d: any) => d.dam_id);
@@ -69,6 +66,9 @@ describe('DashboardPage', () => {
     const capById: Record<string, number> = {};
     for (const d of bubbleProps.data) capById[d.dam_id] = d.capacity;
     expect(capById).toEqual({ A: 1000, C: 2500, E: 500 });
+
+    fireEvent.click(screen.getByRole('button', { name: /next graph/i }));
+    expect(screen.getByText(/storagegraph stub/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /next graph/i }));
     const barNode = screen.getByTestId('bar-props');
@@ -82,13 +82,13 @@ describe('DashboardPage', () => {
     expect(filledById).toEqual({ A: 100, C: 1250 });
 
     fireEvent.click(screen.getByRole('button', { name: /next graph/i }));
-    expect(screen.getByText(/storagegraph stub/i)).toBeInTheDocument();
+    expect(screen.getByTestId('bubble-props')).toBeInTheDocument();
   });
 
-  it('cycles left (wrap) from Storage to Bar', () => {
+  it('cycles left (wrap) from Bubble to Bar', () => {
     render(<DashboardPage />);
 
-    expect(screen.getByText(/storagegraph stub/i)).toBeInTheDocument();
+    expect(screen.getByTestId('bubble-props')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /previous graph/i }));
     expect(screen.getByTestId('bar-props')).toBeInTheDocument();
