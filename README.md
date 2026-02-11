@@ -67,7 +67,7 @@ The goal of this project is to create an accessible, interactive dashboard for v
 - Implementing comprehensive test coverage with Vitest and Testing Library
 
 ## Known Issues
-- **`damsApi` tests disabled** — MSW v2 does not work correctly in the Vitest jsdom environment on this setup. Two issues occur at module-load time: (1) Node's `--localstorage-file` shim is non-functional, which breaks MSW's `CookieStore` singleton initialisation; (2) jsdom's `AbortSignal` is a different class than what Node's native `undici` fetch expects, causing all intercepted requests to fail. The tests in `src/services/damsApi.test.tsx` have been blanked out and need to be rewritten or the environment configured to resolve these conflicts.
+<!-- - **`damsApi` tests disabled** — MSW v2 does not work correctly in the Vitest jsdom environment on this setup. Two issues occur at module-load time: (1) Node's `--localstorage-file` shim is non-functional, which breaks MSW's `CookieStore` singleton initialisation; (2) jsdom's `AbortSignal` is a different class than what Node's native `undici` fetch expects, causing all intercepted requests to fail. The tests in `src/services/damsApi.test.tsx` have been blanked out and need to be rewritten or the environment configured to resolve these conflicts. -->
 - Some touch interactions on complex charts may require refinement on mobile
 - Performance may degrade when rendering graphs with very large historical datasets
 
