@@ -38,6 +38,10 @@ const AboutPage: React.FC = () => {
               🌱 By making this data accessible, the project helps raise awareness of water
               resources and supports sustainable water management.
             </p>
+            <p>
+            🛈 This project is independently developed and is not affiliated with or endorsed by WaterNSW. 
+            For authoritative, up-to-date information, refer to the official WaterNSW website and API.
+            </p>
           </div>
         </section>
       </main>
