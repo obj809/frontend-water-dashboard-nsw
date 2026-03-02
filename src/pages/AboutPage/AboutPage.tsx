@@ -25,6 +25,10 @@ const AboutPage: React.FC = () => {
           <div className="about-canvas">
             <h2 className="about-title">About This Project</h2>
             <p>
+            🛈 This project is independently developed and is not affiliated with or endorsed by WaterNSW. 
+            For authoritative, up-to-date information, refer to the official WaterNSW website and API.
+            </p>
+            <p>
               🌊 Dams have long been vital for water security, power generation, and flood
               control. In New South Wales, WaterNSW manages key dams that supply millions of
               people across Greater Sydney.
@@ -37,10 +41,6 @@ const AboutPage: React.FC = () => {
             <p>
               🌱 By making this data accessible, the project helps raise awareness of water
               resources and supports sustainable water management.
-            </p>
-            <p>
-            🛈 This project is independently developed and is not affiliated with or endorsed by WaterNSW. 
-            For authoritative, up-to-date information, refer to the official WaterNSW website and API.
             </p>
           </div>
         </section>
