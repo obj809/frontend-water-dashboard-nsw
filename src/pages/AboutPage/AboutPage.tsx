@@ -25,7 +25,7 @@ const AboutPage: React.FC = () => {
           <div className="about-canvas">
             <h2 className="about-title">About This Project</h2>
             <p>
-            🛈 This project is independently developed and is not affiliated with or endorsed by WaterNSW. 
+            🛈 This project is independently developed and is not affiliated with WaterNSW. 
             For authoritative, up-to-date information, refer to the official WaterNSW website and API.
             </p>
             <p>
