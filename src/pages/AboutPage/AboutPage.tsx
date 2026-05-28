@@ -40,7 +40,7 @@ const AboutPage: React.FC = () => {
             </p>
             <p>
             🛈 This project is independently developed and is not affiliated with WaterNSW. 
-            For authoritative, up-to-date information, refer to the official WaterNSW website and API.
+            For authoritative information, refer to the official WaterNSW website and API.
             </p>
           </div>
         </section>
