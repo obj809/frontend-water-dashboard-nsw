@@ -9,6 +9,7 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
+  Label,
 } from 'recharts';
 import { useParams } from 'react-router-dom';
 import { useGetAllDamResourcesQuery } from '../../services/damsApi';
@@ -123,7 +124,7 @@ const Graph1: React.FC<Props> = ({ fullScreen = false }) => {
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
-          margin={{ top: 10, right: 30, bottom: 70, left: 10 }}
+          margin={{ top: 10, right: 30, bottom: 80, left: 20 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
 
@@ -134,10 +135,19 @@ const Graph1: React.FC<Props> = ({ fullScreen = false }) => {
             minTickGap={0}
             tickLine={false}
             tick={<RotatedTick />}
-          />
+          >
+            <Label value="Month" position="insideBottom" offset={-60} />
+          </XAxis>
 
-          <YAxis unit="%" domain={[0, 100]} />
-          <Tooltip<number, string> formatter={(v) => (v == null ? '—' : `${v.toFixed(1)}%`)} />
+          <YAxis unit="%" domain={[0, 100]} width={70}>
+            <Label
+              value="Percentage Full (%)"
+              angle={-90}
+              position="insideLeft"
+              style={{ textAnchor: 'middle' }}
+            />
+          </YAxis>
+          <Tooltip formatter={(v) => (v == null ? '—' : `${Number(v).toFixed(1)}%`)} />
 
           <Line
             type="monotone"

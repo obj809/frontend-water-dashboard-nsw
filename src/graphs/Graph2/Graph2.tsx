@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   ReferenceLine,
+  Label,
 } from 'recharts';
 import { useParams } from 'react-router-dom';
 import { useGetAllDamResourcesQuery } from '../../services/damsApi';
@@ -137,7 +138,7 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
         Net Inflow vs Release (Last 12 Months)
       </h2>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 10, right: 30, bottom: 36, left: 10 }}>
+        <LineChart data={chartData} margin={{ top: 10, right: 30, bottom: 55, left: 20 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="date"
@@ -146,8 +147,17 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
             minTickGap={0}
             tickLine={false}
             tick={<RotatedTick />}
-          />
-          <YAxis />
+          >
+            <Label value="Month" position="insideBottom" offset={-45} />
+          </XAxis>
+          <YAxis width={80}>
+            <Label
+              value="Net Volume (ML)"
+              angle={-90}
+              position="insideLeft"
+              style={{ textAnchor: 'middle' }}
+            />
+          </YAxis>
           <Tooltip content={<NetTooltip />} />
           <ReferenceLine y={0} stroke="#111827" />
           <Line

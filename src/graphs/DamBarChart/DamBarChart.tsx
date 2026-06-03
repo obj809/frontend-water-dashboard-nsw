@@ -10,7 +10,6 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  LabelList,
   Cell,
 } from 'recharts';
 import './DamBarChart.scss';

@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   Cell,
+  Label,
 } from 'recharts';
 import { useParams } from 'react-router-dom';
 import { useGetSpecificDamAnalysisByIdQuery } from '../../services/damsApi';
@@ -105,12 +106,21 @@ const Graph3: React.FC<Props> = ({ fullScreen = false }) => {
       <ResponsiveContainer width="100%" height="100%">
       <BarChart
         data={chartData}
-        margin={{ top: 10, right: 30, bottom: 40, left: 10 }}
+        margin={{ top: 10, right: 30, bottom: 55, left: 20 }}
         barCategoryGap={20}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="horizon" tickLine={false} axisLine={true} tickMargin={12} />
-        <YAxis unit="%" domain={[0, 100]} />
+        <XAxis dataKey="horizon" tickLine={false} axisLine={true} tickMargin={12}>
+          <Label value="Time Horizon" position="insideBottom" offset={-30} />
+        </XAxis>
+        <YAxis unit="%" domain={[0, 100]} width={70}>
+          <Label
+            value="Average Percentage Full (%)"
+            angle={-90}
+            position="insideLeft"
+            style={{ textAnchor: 'middle' }}
+          />
+        </YAxis>
         <Tooltip content={<PctTooltip />} />
 
         <Bar
