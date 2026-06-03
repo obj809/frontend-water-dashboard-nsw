@@ -133,11 +133,14 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
       };
     });
 
+    // Treat a value as real data only if it is a non-zero number. Many dams
+    // report metrics (e.g. inflow/release) as all-zero, which would otherwise
+    // render as misleading zero-length spokes; only show the radar when at
+    // least one metric across any horizon has a meaningful non-zero value.
+    const hasValue = (v: number | null) =>
+      typeof v === 'number' && !Number.isNaN(v) && v !== 0;
     const anyData = rows.some(
-      (r) =>
-        (r.raw_12m != null && !Number.isNaN(r.raw_12m)) ||
-        (r.raw_5y  != null && !Number.isNaN(r.raw_5y)) ||
-        (r.raw_10y != null && !Number.isNaN(r.raw_10y))
+      (r) => hasValue(r.raw_12m) || hasValue(r.raw_5y) || hasValue(r.raw_10y)
     );
 
     return { chartData: rows, hasAny: anyData };
@@ -167,7 +170,7 @@ const Graph4: React.FC<Props> = ({ fullScreen = false }) => {
   if (!hasAny || !chartData.length) {
     return (
       <div className={`graph4Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
-        <div>No data available.</div>
+        <div>No analysis data available for this dam.</div>
       </div>
     );
   }
