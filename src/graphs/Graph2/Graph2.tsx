@@ -64,12 +64,13 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
   const { damId = '' } = useParams<{ damId: string }>();
   const { data: allResources = [], isLoading, isError } = useGetAllDamResourcesQuery();
 
-  const chartData = useMemo(() => {
-    if (!damId || !allResources.length) return [];
+  const { chartData, hasData } = useMemo(() => {
+    const empty = { chartData: [] as Array<Record<string, unknown>>, hasData: false };
+    if (!damId || !allResources.length) return empty;
     const rows = (allResources as DamResource[])
       .filter((r) => r.dam_id === damId && r.date)
       .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
-    if (!rows.length) return [];
+    if (!rows.length) return empty;
 
     const latestDate = parseISO(rows[rows.length - 1].date);
     latestDate.setDate(1);
@@ -92,7 +93,7 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
       acc.release += release;
     }
 
-    return monthKeys.map((key) => {
+    const data = monthKeys.map((key) => {
       const { inflow = 0, release = 0 } = totals[key] ?? {};
       return {
         date: labelForMonthKey(key),
@@ -101,6 +102,13 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
         releaseTotal: release,
       };
     });
+
+    // Many dams report inflow/release as all-zero (data not captured), which
+    // would otherwise render a misleading flat line at 0. Treat the window as
+    // having data only if some month has a non-zero inflow or release total.
+    const hasData = data.some((d) => d.inflowTotal !== 0 || d.releaseTotal !== 0);
+
+    return { chartData: data, hasData };
   }, [damId, allResources]);
 
   if (!damId) {
@@ -124,10 +132,10 @@ const Graph2: React.FC<Props> = ({ fullScreen = false }) => {
       </div>
     );
   }
-  if (!chartData.length) {
+  if (!chartData.length || !hasData) {
     return (
       <div className={`graph2Placeholder ${fullScreen ? 'is-fullscreen' : ''}`}>
-        <div>No data available.</div>
+        <div>No inflow or release data available for this dam.</div>
       </div>
     );
   }
